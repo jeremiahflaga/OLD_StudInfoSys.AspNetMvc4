@@ -6,21 +6,21 @@ namespace StudInfoSys.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            ViewBag.Message = "This app records student grades of from Preparatory level to College and Graduate levels.";
 
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your app description page.";
+            ViewBag.Message = "This app is a practice project I made where I used my new knowledge on Entity Framework Code First, Repository Pattern, etc. on ASP.NET MVC4";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Jeremiah M. Flaga";
 
             return View();
         }

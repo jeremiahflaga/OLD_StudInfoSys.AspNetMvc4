@@ -178,11 +178,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\StudentOLDController.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
-    <Compile Include="Models\DeletableEntity.cs" />
     <Compile Include="Models\IDeletableEntity.cs" />
     <Compile Include="Models\Level.cs" />
     <Compile Include="Models\StudentStatus.cs" />
@@ -275,6 +273,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\StudInfoSys.png" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
@@ -330,11 +329,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\StudentOLD\Index.cshtml" />
-    <Content Include="Views\StudentOLD\Details.cshtml" />
-    <Content Include="Views\StudentOLD\Create.cshtml" />
-    <Content Include="Views\StudentOLD\Edit.cshtml" />
-    <Content Include="Views\StudentOLD\Delete.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Student\Details.cshtml" />
     <Content Include="Views\Student\Create.cshtml" />

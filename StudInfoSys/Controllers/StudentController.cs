@@ -10,6 +10,7 @@ using StudInfoSys.Repository;
 
 namespace StudInfoSys.Controllers
 {
+    //[Authorize]
     public class StudentController : Controller
     {
         private readonly IStudentRepository _studentRepository;
