@@ -1,0 +1,45 @@
+﻿body 
+{
+   
+}
+
+#search
+{
+    
+}
+
+#main
+{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.editor-label
+{
+    font-weight: bold;
+    color: #5C87B2;
+}   
+
+.editor-field
+{
+    margin-left: 40px;
+    font-size:medium;
+}
+
+
+.display-label
+{
+    font-weight: bold;
+    color: #5C87B2;
+}   
+
+.display-field
+{
+    margin-left: 40px;
+    font-size:large;
+}
+
+/*select {
+    font-size: 100px;
+}*/

@@ -1,4 +1,4 @@
-﻿@model StudInfoSys.Models.Student
+﻿@model StudInfoSys.ViewModels.StudentViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -12,15 +12,24 @@
     <fieldset>
         <legend>Student</legend>
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.IsDeleted)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.IsDeleted)
             @Html.ValidationMessageFor(model => model.IsDeleted)
-        </div>
+        </div>*@
 
         @Html.HiddenFor(model => model.Id)
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gender)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Gender, Model.GendersList)
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
+
 
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)
@@ -45,6 +54,14 @@
             @Html.EditorFor(model => model.DateOfBirth)
             @Html.ValidationMessageFor(model => model.DateOfBirth)
         </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Address)
@@ -52,6 +69,14 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Address)
             @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StudentStatus)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.StudentStatus, Model.StudentStatusList)
+            @Html.ValidationMessageFor(model => model.StudentStatus)
         </div>
 
         <p>

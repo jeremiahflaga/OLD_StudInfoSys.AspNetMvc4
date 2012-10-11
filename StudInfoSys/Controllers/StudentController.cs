@@ -7,10 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using StudInfoSys.Models;
 using StudInfoSys.Repository;
+using StudInfoSys.ViewModels;
 
 namespace StudInfoSys.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class StudentController : Controller
     {
         private readonly IStudentRepository _studentRepository;
@@ -25,7 +26,7 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Index()
         {
-            return View(_studentRepository.GetAll().ToList());
+            return View(_studentRepository.GetAll().OrderBy(s => new { s.LastName, s.FirstName }).ToList());
         }
 
         //
@@ -46,23 +47,24 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View(new StudentViewModel());
         }
 
         //
         // POST: /Student/Create
 
         [HttpPost]
-        public ActionResult Create(Student student)
+        public ActionResult Create(StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
+                var student = MapStudentViewModelToStudent(studentViewModel);
                 _studentRepository.Insert(student);
                 _studentRepository.Save();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            return View(studentViewModel);
         }
 
         //
@@ -75,22 +77,24 @@ namespace StudInfoSys.Controllers
             {
                 return HttpNotFound();
             }
-            return View(student);
+            var studViewModel = MapStudentToStudentViewModel(student);
+            return View(studViewModel);
         }
 
         //
         // POST: /Student/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Student student)
+        public ActionResult Edit(StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
+                var student = MapStudentViewModelToStudent(studentViewModel);
                 _studentRepository.Update(student);
                 _studentRepository.Save();
                 return RedirectToAction("Index");
             }
-            return View(student);
+            return View(studentViewModel);
         }
 
         //
@@ -113,6 +117,10 @@ namespace StudInfoSys.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Student student = _studentRepository.GetById(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
             _studentRepository.Delete(student);
             _studentRepository.Save();
             return RedirectToAction("Index");
@@ -123,5 +131,46 @@ namespace StudInfoSys.Controllers
         //    db.Dispose();
         //    base.Dispose(disposing);
         //}
+
+
+
+        #region Private methods
+
+        private static StudentViewModel MapStudentToStudentViewModel(Student student)
+        {
+            var studViewModel = new StudentViewModel
+            {
+                Address = student.Address,
+                DateOfBirth = student.DateOfBirth,
+                FirstName = student.FirstName,
+                Gender = student.Gender,
+                Id = student.Id,
+                LastName = student.LastName,
+                Photo = student.Photo,
+                StudentStatus = student.StudentStatus,
+                Email = student.Email
+            };
+            return studViewModel;
+        }
+
+        private static Student MapStudentViewModelToStudent(StudentViewModel studentViewModel)
+        {
+            var studViewModel = new Student
+            {
+                Address = studentViewModel.Address,
+                DateOfBirth = studentViewModel.DateOfBirth,
+                FirstName = studentViewModel.FirstName,
+                Gender = studentViewModel.Gender,
+                Id = studentViewModel.Id,
+                LastName = studentViewModel.LastName,
+                Photo = studentViewModel.Photo,
+                StudentStatus = studentViewModel.StudentStatus,
+                Email = studentViewModel.Email
+            };
+            return studViewModel;
+        }
+
+        #endregion
+
     }
 }

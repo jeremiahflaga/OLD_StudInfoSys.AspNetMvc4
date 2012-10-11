@@ -15,19 +15,25 @@
             @Html.DisplayNameFor(model => model.IsDeleted)
         </th>*@
         <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        @*<th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastName)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.DateOfBirth)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullName)
+            @Html.DisplayNameFor(model => model.Address)
         </th>
         <th></th>
     </tr>
@@ -38,19 +44,25 @@
             @Html.DisplayFor(modelItem => item.IsDeleted)
         </td>*@
         <td>
+            @Html.DisplayFor(modelItem => item.FullName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.LastName)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.DateOfBirth)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Address)
+            @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FullName)
+            @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

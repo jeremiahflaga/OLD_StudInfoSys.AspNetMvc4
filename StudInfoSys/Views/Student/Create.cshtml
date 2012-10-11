@@ -1,4 +1,4 @@
-﻿@model StudInfoSys.Models.Student
+﻿@model StudInfoSys.ViewModels.StudentViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -12,13 +12,13 @@
     <fieldset>
         <legend>Student</legend>
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.IsDeleted)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.IsDeleted)
             @Html.ValidationMessageFor(model => model.IsDeleted)
-        </div>
+        </div>*@
 
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)
@@ -35,6 +35,14 @@
             @Html.EditorFor(model => model.LastName)
             @Html.ValidationMessageFor(model => model.LastName)
         </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Gender)   
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Gender, Model.GendersList, new {style="font-size: 30px;"})
+            @Html.ValidationMessageFor(model => model.Gender)
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.DateOfBirth)
@@ -43,6 +51,14 @@
             @Html.EditorFor(model => model.DateOfBirth)
             @Html.ValidationMessageFor(model => model.DateOfBirth)
         </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Address)
@@ -50,6 +66,14 @@
         <div class="editor-field">
             @Html.EditorFor(model => model.Address)
             @Html.ValidationMessageFor(model => model.Address)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.StudentStatus)   
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.StudentStatus, Model.StudentStatusList, new {style="font-size: 30px;"})
+            @Html.ValidationMessageFor(model => model.Gender)
         </div>
 
         <p>

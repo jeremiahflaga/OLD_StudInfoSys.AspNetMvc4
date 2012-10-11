@@ -12,6 +12,7 @@ namespace StudInfoSys.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            //AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(StudInfoSysContext context)
@@ -31,29 +32,34 @@ namespace StudInfoSys.Migrations
             context.Subjects.AddOrUpdate(s => s.SubjectCode, CreateListOfSubjects());
             context.SaveChanges();
 
-            context.Students.AddOrUpdate(
-                s => new { s.FirstName, s.LastName },
-                new Student
-                {
-                    FirstName = "Jboy",
-                    LastName = "Flaga",
-                    DateOfBirth = new DateTime(1990, 01, 01),
-                    Address = "Address",
-                    Gender = Gender.Male,
-                    StudentStatus = StudentStatus.InUndergraduateStudies,
-                    Registrations = CreateListOfRegistrations()
-                },
-
-                new Student { FirstName = "Yves Donald", LastName = "Maquilan", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.InUndergraduateStudies },
-                new Student { FirstName = "Loreto", LastName = "Yubat", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.InUndergraduateStudies },
-                new Student { FirstName = "Dawn", LastName = "Alcazar", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.InUndergraduateStudies },
-                new Student { FirstName = "Clyde", LastName = "Goboy", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.InUndergraduateStudies },
-                new Student { FirstName = "Orland", LastName = "Orland", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.InUndergraduateStudies }
-            );
+            context.Students.AddOrUpdate(s => new { s.FirstName, s.LastName }, CreateListOfStudents());
 
 
             //context.Database.ExecuteSqlCommand("ALTER TABLE Subjects ADD UNIQUE (SubjectCode);");
             //context.Database.ExecuteSqlCommand("ALTER TABLE Subjects ADD CONSTRAINT con_first UNIQUE (SubjectCode);");
+        }
+
+        private Student[] CreateListOfStudents()
+        {
+            return new Student[]
+                       {
+                            new Student
+                            {
+                                FirstName = "Jboy",
+                                LastName = "Flaga",
+                                DateOfBirth = new DateTime(1990, 01, 01),
+                                Address = "Kidapawan City, North Cotabato, Philippines, 9400",
+                                Gender = Gender.Male,
+                                StudentStatus = StudentStatus.UndergraduateStudiesOnGoing,
+                                Registrations = CreateListOfRegistrations()
+                            },
+
+                            new Student { FirstName = "Yves Donald", LastName = "Maquilan", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing },
+                            new Student { FirstName = "Loreto", LastName = "Yubat", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing },
+                            new Student { FirstName = "Dawn", LastName = "Alcazar", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing },
+                            new Student { FirstName = "Clyde", LastName = "Goboy", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing },
+                            new Student { FirstName = "Orland", LastName = "Orland", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing }
+                        };
         }
 
 

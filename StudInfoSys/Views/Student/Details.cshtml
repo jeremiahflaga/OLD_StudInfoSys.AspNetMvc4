@@ -9,7 +9,7 @@
 <fieldset>
     <legend>Student</legend>
 
-    <div class="display-label">
+    @*<div class="display-label">
          @Html.DisplayNameFor(model => model.IsDeleted)
     </div>
     <div class="display-field">
@@ -28,6 +28,20 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.LastName)
+    </div>*@
+    
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FullName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FullName)
+    </div>
+    
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Gender)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gender)
     </div>
 
     <div class="display-label">
@@ -35,6 +49,13 @@
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.DateOfBirth)
+    </div>
+    
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
     </div>
 
     <div class="display-label">
@@ -44,12 +65,6 @@
         @Html.DisplayFor(model => model.Address)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FullName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FullName)
-    </div>
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |

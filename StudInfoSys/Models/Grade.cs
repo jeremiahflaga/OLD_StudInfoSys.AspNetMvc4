@@ -13,12 +13,14 @@ namespace StudInfoSys.Models
 
         [DisplayFormat(DataFormatString = "{0:c}", NullDisplayText = "No Grade")]
         [Range(0, 100)]
+        [Display(Name="Grade")]
         public virtual decimal? GradeValue { get; set; }
 
         //for navigation only
         public virtual SubjectGradesRecord SubjectGradesRecord { get; set; }       
         //public virtual int SubjectGradesRecordId { get; set; } //for easy access to SubjectGradesRecord's Id
 
+        [ScaffoldColumn((false))]
         public virtual bool IsDeleted { get; set; }
     }
 }

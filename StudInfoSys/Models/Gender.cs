@@ -1,8 +1,13 @@
-﻿namespace StudInfoSys.Models
+﻿using System.ComponentModel;
+
+namespace StudInfoSys.Models
 {
     public enum Gender
     {
-        Male = 0,
+        [Description("Male - asdf")]
+        Male = 1,
+
+        [Description("Female- asdf")]
         Female
     }
 }

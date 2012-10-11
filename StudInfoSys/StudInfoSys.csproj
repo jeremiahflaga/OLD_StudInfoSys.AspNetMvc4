@@ -181,8 +181,11 @@
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
+    <Compile Include="Helpers\EnumHelpers.cs" />
+    <Compile Include="Helpers\Extensions.cs" />
     <Compile Include="Models\IDeletableEntity.cs" />
     <Compile Include="Models\Level.cs" />
+    <Compile Include="Models\Month.cs" />
     <Compile Include="Models\StudentStatus.cs" />
     <Compile Include="Models\StudInfoSysContext.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -214,8 +217,10 @@
     <Compile Include="Repository\RegistrationRepository.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
+    <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\StudInfoSys.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -337,7 +342,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
