@@ -12,7 +12,7 @@ namespace StudInfoSys.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            //AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(StudInfoSysContext context)
@@ -72,7 +72,8 @@ namespace StudInfoSys.Migrations
                                {
                                    DateOfRegistration = new DateTime(2012, 06, 01),
                                    SchoolYearFrom = 2012, SchoolYearTo = 2013,
-                                   SemesterId = 1, DegreeId= 1, //IsDeleted = false, 
+                                   SemesterId = 1, DegreeId= 1, //IsDeleted = false,
+                                   //Degree = new Degree{Id = 2},
                                    SubjectGradesRecords = CreateListOfSubjectGradesRecordsForFirstYear()
                                },
                            //Second Year

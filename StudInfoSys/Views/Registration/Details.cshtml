@@ -1,0 +1,57 @@
+﻿@model StudInfoSys.Models.Registration
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Registration</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SchoolYearFrom)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchoolYearFrom)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SchoolYearTo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchoolYearTo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Semester.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Semester.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Degree.Title)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Degree.Title)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.DateOfRegistration)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.DateOfRegistration)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.SchoolYear)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.SchoolYear)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -24,7 +24,5 @@ namespace StudInfoSys.Repository
 {
     public interface IStudentRepository : IDeletableRepository<Student>
     {
-        IDictionary<int, string> GetListOfGenders();
-        IDictionary<int, string> GetListOfStudentStatus();
     }
 }
