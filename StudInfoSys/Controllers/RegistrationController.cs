@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StudInfoSys.Models;
+using StudInfoSys.Repository;
 
 namespace StudInfoSys.Controllers
 {
@@ -13,23 +14,18 @@ namespace StudInfoSys.Controllers
     {
         private StudInfoSysContext db = new StudInfoSysContext();
 
-        //
-        // GET: /Registration/
+        private readonly IRegistrationRepository _registrationRepository;
 
-        //public ActionResult Index()
-        //{
-        //    var registrations = db.Registrations.Include(r => r.Semester).Include(r => r.Degree);
-        //    return View(registrations.ToList());
-        //}
+        public RegistrationController(IRegistrationRepository registrationRepository)
+        {
+            _registrationRepository = registrationRepository;
+        }
+
 
         public ActionResult RegistrationsByStudentId(int studentId)
         {
-            var registrations = db.Registrations.Where(r => r.Student.Id == studentId).Include(r => r.Semester).Include(r => r.Degree);
+            var registrations = _registrationRepository.SearchFor(r => r.Student.Id == studentId).Include(r => r.Semester).Include(r => r.Degree);
             
-            //if (!registrations.Any())
-            //{
-            //    return null; // TODO: return a page that informs user that no registration record for current student exists
-            //}
             return View("Index", registrations);
         }
 
@@ -38,7 +34,7 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Registration registration = db.Registrations.Find(id);
+            Registration registration = _registrationRepository.GetById(id);
             if (registration == null)
             {
                 return HttpNotFound();
@@ -64,9 +60,9 @@ namespace StudInfoSys.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Registrations.Add(registration);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                _registrationRepository.Insert(registration);
+                _registrationRepository.Save();
+                return RedirectToAction("RegistrationsByStudentId", new {studentId = registration.Student.Id});
             }
 
             ViewBag.SemesterId = new SelectList(db.Semesters, "Id", "Name", registration.SemesterId);
@@ -79,7 +75,7 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Registration registration = db.Registrations.Find(id);
+            Registration registration = _registrationRepository.GetById(id);
             if (registration == null)
             {
                 return HttpNotFound();
@@ -97,9 +93,9 @@ namespace StudInfoSys.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(registration).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                _registrationRepository.Update(registration);
+                _registrationRepository.Save();
+                return RedirectToAction("RegistrationsByStudentId", new { studentId = registration.Student.Id });
             }
             ViewBag.SemesterId = new SelectList(db.Semesters, "Id", "Name", registration.SemesterId);
             ViewBag.DegreeId = new SelectList(db.Degrees, "Id", "Title", registration.DegreeId);
@@ -111,7 +107,7 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Registration registration = db.Registrations.Find(id);
+            Registration registration = _registrationRepository.GetById(id);
             if (registration == null)
             {
                 return HttpNotFound();
@@ -125,10 +121,12 @@ namespace StudInfoSys.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Registration registration = db.Registrations.Find(id);
-            db.Registrations.Remove(registration);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            Registration registration = _registrationRepository.GetById(id);
+            _registrationRepository.Delete(registration);
+            _registrationRepository.Save();
+
+            //TODO: create a RegistrationViewModel that includes StudentId as one of its properties
+            return RedirectToAction("RegistrationsByStudentId", new { studentId = registration.Student.Id });
         }
 
         protected override void Dispose(bool disposing)
