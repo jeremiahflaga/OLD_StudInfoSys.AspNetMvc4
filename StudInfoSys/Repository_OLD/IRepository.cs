@@ -11,11 +11,11 @@ namespace StudInfoSys.Repository
         void Insert(T entity);
         void Delete(T entity);
         void Update(T entity);
-        IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate, bool includeDeleted);
+        IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate);
         IQueryable<T> GetAll();
         T GetById(int id);
         void Save();
-        void Restore(T entity);
+        //void Restore(T entity);
 
     }
 }

@@ -21,10 +21,10 @@ namespace StudInfoSys.Repository
         public new virtual void Delete(T entity)
         {
             //TODO: test passing a null value as entity and see if it enters this "if"
-            var e = (entity as IDeletableEntity);
-            if (e != null)
+            //var e = (entity as IDeletableEntity);
+            if (entity != null)
             {
-                e.IsDeleted = true;
+                entity.IsDeleted = true;
             }
         }
 
@@ -45,10 +45,10 @@ namespace StudInfoSys.Repository
 
         public virtual void Restore(T entity)
         {
-            var e = (entity as IDeletableEntity);
-            if (e != null)
+            //var e = (entity as IDeletableEntity);
+            if (entity != null)
             {
-                e.IsDeleted = false;
+                entity.IsDeleted = false;
             }
         }
     }

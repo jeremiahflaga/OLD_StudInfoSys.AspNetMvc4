@@ -6,11 +6,15 @@ using System.Web;
 
 namespace StudInfoSys.Repository
 {
-    public interface IDeletableRepository<T> : IRepository<T>
+    public interface ICandidateDeletableRepository<T> where T : class
     {
+        void Insert(T entity);
+        void Delete(T entity);
+        void Update(T entity);
         IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate, bool includeDeleted);
-        new IQueryable<T> GetAll();
-        new void Delete(T entity);
+        IQueryable<T> GetAll();
+        T GetById(int id);
+        void Save();
         void Restore(T entity);
     }
 }

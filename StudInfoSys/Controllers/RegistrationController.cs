@@ -24,7 +24,7 @@ namespace StudInfoSys.Controllers
 
         public ActionResult RegistrationsByStudentId(int studentId)
         {
-            var registrations = _registrationRepository.SearchFor(r => r.Student.Id == studentId).Include(r => r.Semester).Include(r => r.Degree);
+            var registrations = _registrationRepository.SearchFor(r => r.Student.Id == studentId, false).Include(r => r.Semester).Include(r => r.Degree);
             
             return View("Index", registrations);
         }

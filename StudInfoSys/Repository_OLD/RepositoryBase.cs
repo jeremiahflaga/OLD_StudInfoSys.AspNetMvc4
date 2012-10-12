@@ -19,9 +19,9 @@ namespace StudInfoSys.Repository
             DbSet = dataContext.Set<T>();
             Context = dataContext;
         }
-
+ 
         #region IRepository<T> Members
-
+ 
         public virtual void Insert(T entity)
         {
             DbSet.Add(entity);
@@ -29,10 +29,6 @@ namespace StudInfoSys.Repository
 
         public virtual void Delete(T entity)
         {
-            if (entity is IDeletableEntity)
-            {
-                (entity as IDeletableEntity).IsDeleted = true;
-            }
             DbSet.Remove(entity);
         }
 
@@ -41,14 +37,9 @@ namespace StudInfoSys.Repository
             Context.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate, bool includeDeleted)
+        public virtual IQueryable<T> SearchFor(Expression<Func<T, bool>> predicate)
         {
-            var result = DbSet.Where(predicate);
-            if (!includeDeleted && typeof(T).IsAssignableFrom(typeof(IDeletableEntity)))
-            {
-                return result.Where(e => (e as IDeletableEntity).IsDeleted == false);
-            }
-            return result;
+            return DbSet.Where(predicate);
         }
 
         /// <summary>
@@ -57,10 +48,6 @@ namespace StudInfoSys.Repository
         /// <returns></returns>
         public virtual IQueryable<T> GetAll()
         {
-            if (typeof(T).IsAssignableFrom(typeof(IDeletableEntity)))
-            {
-                return DbSet.Where(e => (e as IDeletableEntity).IsDeleted == false);
-            }
             return DbSet;
         }
 
@@ -74,13 +61,7 @@ namespace StudInfoSys.Repository
             Context.SaveChanges();
         }
 
-        public virtual void Restore(T entity)
-        {
-            if (entity is IDeletableEntity)
-            {
-                (entity as IDeletableEntity).IsDeleted = false;
-            }
-        }
+        
 
         #endregion
 

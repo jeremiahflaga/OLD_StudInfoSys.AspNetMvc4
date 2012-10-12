@@ -22,7 +22,7 @@ using StudInfoSys.Models;
 
 namespace StudInfoSys.Repository
 {
-    public interface IStudentRepository : IRepository<Student>
+    public interface IStudentRepository : IDeletableRepository<Student>
     {
     }
 }

@@ -7,7 +7,7 @@ using StudInfoSys.Models;
 
 namespace StudInfoSys.Repository
 {
-    public class StudentRepository : RepositoryBase<Student>, IStudentRepository
+    public class StudentRepository : DeletableRepositoryBase<Student>, IStudentRepository
     {
         public StudentRepository(DbContext dataContext)
             : base(dataContext)

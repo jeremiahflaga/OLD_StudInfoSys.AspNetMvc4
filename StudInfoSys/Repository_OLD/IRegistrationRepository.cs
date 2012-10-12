@@ -6,7 +6,7 @@ using StudInfoSys.Models;
 
 namespace StudInfoSys.Repository
 {
-    public interface IRegistrationRepository : IRepository<Registration>
+    public interface IRegistrationRepository : IDeletableRepository<Registration>
     {
     }
 }

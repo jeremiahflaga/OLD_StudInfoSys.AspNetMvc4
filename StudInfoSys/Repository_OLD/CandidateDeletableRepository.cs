@@ -9,12 +9,12 @@ using StudInfoSys.Models;
 
 namespace StudInfoSys.Repository
 {
-    public class RepositoryBase<T> : IRepository<T> where T : class 
+    public class CandidateDeletableRepository<T> : ICandidateDeletableRepository<T> where T : class
     {
         protected DbSet<T> DbSet;
         protected DbContext Context;
 
-        public RepositoryBase(DbContext dataContext)
+        public CandidateDeletableRepository(DbContext dataContext)
         {
             DbSet = dataContext.Set<T>();
             Context = dataContext;

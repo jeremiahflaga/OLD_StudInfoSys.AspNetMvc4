@@ -24,8 +24,8 @@ namespace StudInfoSys
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
 
-
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<StudInfoSysContext, Configuration>());
+            // NOTE: This will reset the database based on the Seed method in Configuration class
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<StudInfoSysContext, Configuration>());
             //Database.SetInitializer( new DropCreateDatabaseIfModelChanges<StudInfoSysContext>());
 
         }

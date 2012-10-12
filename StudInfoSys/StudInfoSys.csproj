@@ -211,8 +211,6 @@
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\SubjectGradesRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\DeletableRepositoryBase.cs" />
-    <Compile Include="Repository\IDeletableRepository.cs" />
     <Compile Include="Repository\IRegistrationRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IStudentRepository.cs" />
