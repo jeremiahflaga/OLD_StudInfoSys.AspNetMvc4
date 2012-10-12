@@ -17,8 +17,8 @@ namespace StudInfoSys.Helpers
                               // Selected = e.Equals(enumValue),
                               Text = ToDescription(e),
                               Value = e.ToString()
-                          }).ToList();
-            values.Insert(0, new SelectListItem { Text = "Select", Value = "" });
+                          });
+
             return values;
         }
 

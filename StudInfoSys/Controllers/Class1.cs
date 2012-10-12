@@ -12,19 +12,19 @@
 //{
 //    public class RegistrationController : Controller
 //    {
-//        private StudInfoSysContext db = new StudInfoSysContext();
+//        private IUnitOfWork _unitOfWork;
 
-//        private readonly IRegistrationRepository _registrationRepository;
+//        //private readonly IRegistrationRepository _registrationRepository;
 
-//        public RegistrationController(IRegistrationRepository registrationRepository)
+//        public RegistrationController(IUnitOfWork unitOfWork)
 //        {
-//            _registrationRepository = registrationRepository;
+//            _unitOfWork = unitOfWork;
 //        }
 
 
 //        public ActionResult RegistrationsByStudentId(int studentId)
 //        {
-//            var registrations = _registrationRepository.SearchFor(r => r.Student.Id == studentId).Include(r => r.Semester).Include(r => r.Degree);
+//            var registrations = _unitOfWork.RegistrationRepository.SearchFor(r => r.Student.Id == studentId, false).Include(r => r.Semester).Include(r => r.Degree);
 
 //            return View("Index", registrations);
 //        }
@@ -34,7 +34,7 @@
 
 //        public ActionResult Details(int id = 0)
 //        {
-//            Registration registration = _registrationRepository.GetById(id);
+//            Registration registration = _unitOfWork.RegistrationRepository.GetById(id);
 //            if (registration == null)
 //            {
 //                return HttpNotFound();
@@ -47,8 +47,8 @@
 
 //        public ActionResult Create()
 //        {
-//            ViewBag.SemesterId = new SelectList(db.Semesters, "Id", "Name");
-//            ViewBag.DegreeId = new SelectList(db.Degrees, "Id", "Title");
+//            ViewBag.SemesterId = new SelectList(_unitOfWork.SemesterRepository.GetAll(), "Id", "Name");
+//            ViewBag.DegreeId = new SelectList(_unitOfWork.DegreeRepository.GetAll(), "Id", "Title");
 //            return View();
 //        }
 
@@ -124,6 +124,8 @@
 //            Registration registration = _registrationRepository.GetById(id);
 //            _registrationRepository.Delete(registration);
 //            _registrationRepository.Save();
+
+//            //TODO: create a RegistrationViewModel that includes StudentId as one of its properties
 //            return RedirectToAction("RegistrationsByStudentId", new { studentId = registration.Student.Id });
 //        }
 

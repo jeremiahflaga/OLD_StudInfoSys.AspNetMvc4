@@ -176,15 +176,30 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Class1.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
-    <Compile Include="Controllers\RegistrationController_NEW.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Helpers\StudInfoSysHelper.cs" />
+    <Compile Include="Repository\DegreeRepository.cs" />
+    <Compile Include="Repository\GradeRepository.cs" />
+    <Compile Include="Repository\IDegreeRepository.cs" />
+    <Compile Include="Repository\IGradeRepository.cs" />
+    <Compile Include="Repository\ILevelRepository.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
+    <Compile Include="Repository\IPeriodRepository.cs" />
+    <Compile Include="Repository\ISemesterRepository.cs" />
+    <Compile Include="Repository\ISubjectGradesRecordRepository.cs" />
+    <Compile Include="Repository\ISubjectRepository.cs" />
+    <Compile Include="Repository\LevelRepository.cs" />
+    <Compile Include="Repository\PeriodRepository.cs" />
+    <Compile Include="Repository\SemesterRepository.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyResolver.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
+    <Compile Include="Repository\SubjectGradesRecordRepository.cs" />
+    <Compile Include="Repository\SubjectRepository.cs" />
     <Compile Include="Helpers\EnumHelpers.cs" />
-    <Compile Include="Helpers\Extensions.cs" />
+    <Compile Include="Helpers\EnumExtensions.cs" />
     <Compile Include="Models\IDeletableEntity.cs" />
     <Compile Include="Models\Level.cs" />
     <Compile Include="Models\Month.cs" />
@@ -214,9 +229,12 @@
     <Compile Include="Repository\IRegistrationRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\IStudentRepository.cs" />
+    <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Repository\RegistrationRepository.cs" />
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
+    <Compile Include="Repository\UnitOfWork.cs" />
+    <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

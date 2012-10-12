@@ -7,9 +7,9 @@ using StudInfoSys.Models;
 
 namespace StudInfoSys.Repository
 {
-    public class RegistrationRepository : RepositoryBase<Registration>, IRegistrationRepository
+    public class PeriodRepository : RepositoryBase<Period>, IPeriodRepository
     {
-        public RegistrationRepository(DbContext dataContext) 
+        public PeriodRepository(DbContext dataContext)
             : base(dataContext)
         {
         }

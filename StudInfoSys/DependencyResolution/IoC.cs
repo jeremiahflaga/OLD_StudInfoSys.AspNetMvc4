@@ -33,9 +33,20 @@ namespace StudInfoSys.DependencyResolution {
                                     });
                             x.For<IStudentRepository>().Use<StudentRepository>();
                             x.For<IRegistrationRepository>().Use<RegistrationRepository>();
+
+                            x.For<ISubjectGradesRecordRepository>().Use<SubjectGradesRecordRepository>();
+                            x.For<IGradeRepository>().Use<GradeRepository>();
+
+                            x.For<IDegreeRepository>().Use<DegreeRepository>();
+                            x.For<ILevelRepository>().Use<LevelRepository>();
+                            x.For<IPeriodRepository>().Use<PeriodRepository>();
+                            x.For<ISemesterRepository>().Use<SemesterRepository>();
+                            x.For<ISubjectRepository>().Use<SubjectRepository>();
                             x.For<DbContext>().Use<StudInfoSysContext>();
                             //x.For<IDeletableEntity>().Use<DeletableEntity>();
                         });
+
+
             return ObjectFactory.Container;
         }
     }

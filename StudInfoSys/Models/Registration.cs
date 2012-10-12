@@ -13,9 +13,11 @@ namespace StudInfoSys.Models
         public virtual int Id { get; set; }
         
         [Required]
+        [Display(Name = "From School Year")]
         public virtual int SchoolYearFrom { get; set; }
 
         [Required]
+        [Display(Name = "To School Year")]
         public virtual int SchoolYearTo { get; set; }
 
         [Required]

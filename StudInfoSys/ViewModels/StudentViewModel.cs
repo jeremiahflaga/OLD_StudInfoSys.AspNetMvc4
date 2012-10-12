@@ -67,12 +67,14 @@ namespace StudInfoSys.ViewModels
 
         public IEnumerable<SelectListItem> GendersList
         {
-            get { return EnumHelpers.ToSelectList(typeof (Gender)); }
+            get { return StudInfoSysHelper.GenderToSelectList(); }
+            set {}
         }
 
         public IEnumerable<SelectListItem> StudentStatusList
         {
-            get { return EnumHelpers.ToSelectList(typeof(StudentStatus)); }
+            get { return StudInfoSysHelper.StudntStatusToSelectList(); }
+            set {}
         }
 
         #endregion
