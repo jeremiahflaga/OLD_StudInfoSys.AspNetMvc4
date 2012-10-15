@@ -20,12 +20,14 @@ namespace StudInfoSys.Models
         [Display(Name = "To School Year")]
         public virtual int SchoolYearTo { get; set; }
 
-        [Required]
+        
         public virtual Semester Semester { get; set; }
+        [Required]
         public virtual int SemesterId { get; set; }
 
-        [Required]
+        
         public virtual Degree Degree { get; set; }
+        [Required]
         public virtual int DegreeId { get; set; }
         
         [Required]

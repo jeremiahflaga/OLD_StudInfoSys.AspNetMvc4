@@ -1,4 +1,4 @@
-﻿@model StudInfoSys.Models.Registration
+﻿@model StudInfoSys.ViewModels.RegistrationViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -9,6 +9,8 @@
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
 
+    @Html.HiddenFor(model => model.StudentId)
+    
     <fieldset>
         <legend>Registration</legend>
 
@@ -32,7 +34,8 @@
             @Html.LabelFor(model => model.SemesterId, "Semester")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("SemesterId", String.Empty)
+            @*@Html.DropDownList("SemestersList", String.Empty)*@
+            @Html.DropDownListFor(model => model.SemesterId, Model.SemestersList, "Select...")
             @Html.ValidationMessageFor(model => model.SemesterId)
         </div>
 
@@ -40,7 +43,8 @@
             @Html.LabelFor(model => model.DegreeId, "Degree")
         </div>
         <div class="editor-field">
-            @Html.DropDownList("DegreeId", String.Empty)
+            @*@Html.DropDownList("DegreesList", String.Empty)*@
+            @Html.DropDownListFor(model => model.DegreeId, Model.DegreesList, "Select...")
             @Html.ValidationMessageFor(model => model.DegreeId)
         </div>
 
@@ -59,7 +63,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { id = Model.StudentId })
 </div>
 
 @section Scripts {

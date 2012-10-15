@@ -19,8 +19,9 @@ namespace StudInfoSys.Models
         [Range(0, 10)]
         public virtual int NumberOfUnits { get; set; }
 
-        [Required]
+        
         public virtual Level Level { get; set; }
+        [Required]
         public virtual int LevelId { get; set; }
     }
 }

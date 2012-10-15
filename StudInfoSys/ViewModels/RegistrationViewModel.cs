@@ -21,18 +21,22 @@ namespace StudInfoSys.ViewModels
         public int SchoolYearTo { get; set; }
 
         [Required]
-        public Semester Semester { get; set; }
-        //public int SemesterId { get; set; }
+        [Display(Name="Semester")]
+        //public Semester Semester { get; set; }
+        public int SemesterId { get; set; }
 
         [Required]
-        public Degree Degree { get; set; }
-        //public int DegreeId { get; set; }
+        [Display(Name="Degree")]
+        //public Degree Degree { get; set; }
+        public int DegreeId { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Date of Registration")]
         public DateTime DateOfRegistration { get; set; }
 
+        //[Required]
+        [Display(Name="Student")]
         public int StudentId { get; set; }
 
         [Display(Name = "School Year", Order = 500)]

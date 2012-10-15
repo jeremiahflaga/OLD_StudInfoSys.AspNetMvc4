@@ -2,30 +2,46 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using StudInfoSys.Models;
 using StudInfoSys.Repository;
+using StudInfoSys.ViewModels;
 
 namespace StudInfoSys.Controllers
 {
     public class RegistrationController : Controller
     {
-        private StudInfoSysContext db = new StudInfoSysContext();
+        private readonly IUnitOfWork _unitOfWork;
 
-        private readonly IRegistrationRepository _registrationRepository;
+        //private readonly IRegistrationRepository _registrationRepository;
 
-        public RegistrationController(IRegistrationRepository registrationRepository)
+        public RegistrationController(IUnitOfWork unitOfWork)
         {
-            _registrationRepository = registrationRepository;
+            _unitOfWork = unitOfWork;
         }
 
+        //
+        // GET: /Student/
 
+        /// <summary>
+        /// Indexes the registration records of the student with the specified student ID.
+        /// </summary>
+        /// <param name="id">The student ID.</param>
+        /// <returns></returns>
+        public ActionResult Index(int id)
+        {
+            return RegistrationsByStudentId(id);
+        }
+
+        [ChildActionOnly]
         public ActionResult RegistrationsByStudentId(int studentId)
         {
-            var registrations = _registrationRepository.SearchFor(r => r.Student.Id == studentId, false).Include(r => r.Semester).Include(r => r.Degree);
-            
+            ViewBag.StudentId = studentId;
+            var registrations = _unitOfWork.RegistrationRepository.SearchFor(r => r.Student.Id == studentId, false).Include(r => r.Semester).Include(r => r.Degree);
             return View("Index", registrations);
         }
 
@@ -34,7 +50,7 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Details(int id = 0)
         {
-            Registration registration = _registrationRepository.GetById(id);
+            Registration registration = _unitOfWork.RegistrationRepository.GetById(id);
             if (registration == null)
             {
                 return HttpNotFound();
@@ -45,29 +61,51 @@ namespace StudInfoSys.Controllers
         //
         // GET: /Registration/Create
 
-        public ActionResult Create()
+        /// <summary>
+        /// Creates the registration for the student with the specified student ID.
+        /// </summary>
+        /// <param name="id">The student ID.</param>
+        /// <returns></returns>
+        public ActionResult Create(int id)
         {
-            ViewBag.SemesterId = new SelectList(db.Semesters, "Id", "Name");
-            ViewBag.DegreeId = new SelectList(db.Degrees, "Id", "Title");
-            return View();
+            var registrationViewModel = new RegistrationViewModel
+                                            {
+                                                StudentId = id,
+                                                SemestersList =
+                                                    new SelectList(_unitOfWork.SemesterRepository.GetAll(), "Id", "Name"),
+                                                DegreesList =
+                                                    new SelectList(_unitOfWork.DegreeRepository.GetAll(), "Id", "Title")
+                                            };
+            
+            return View(registrationViewModel);
         }
 
         //
         // POST: /Registration/Create
 
         [HttpPost]
-        public ActionResult Create(Registration registration)
+        public ActionResult Create(RegistrationViewModel registrationViewModel)
         {
             if (ModelState.IsValid)
             {
-                _registrationRepository.Insert(registration);
-                _registrationRepository.Save();
-                return RedirectToAction("RegistrationsByStudentId", new {studentId = registration.Student.Id});
+                var registration = MapRegistrationViewModelToRegistration(registrationViewModel);
+                _unitOfWork.RegistrationRepository.Insert(registration);
+                _unitOfWork.RegistrationRepository.Save();
+                //try
+                //{
+                //    _unitOfWork.RegistrationRepository.Save();
+                //}
+                //catch (DbEntityValidationException ex)
+                //{
+                //    Debug.WriteLine("========================================\nDEBUG: " + ex.ToString());
+                //}
+                
+                return RedirectToAction("Index", new { id = registrationViewModel.StudentId });
             }
 
-            ViewBag.SemesterId = new SelectList(db.Semesters, "Id", "Name", registration.SemesterId);
-            ViewBag.DegreeId = new SelectList(db.Degrees, "Id", "Title", registration.DegreeId);
-            return View(registration);
+            registrationViewModel.SemestersList = new SelectList(_unitOfWork.SemesterRepository.GetAll(), "Id", "Name", registrationViewModel.SemesterId);
+            registrationViewModel.DegreesList = new SelectList(_unitOfWork.DegreeRepository.GetAll(), "Id", "Title", registrationViewModel.DegreeId);
+            return View(registrationViewModel);
         }
 
         //
@@ -75,31 +113,36 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Edit(int id = 0)
         {
-            Registration registration = _registrationRepository.GetById(id);
+            Registration registration = _unitOfWork.RegistrationRepository.GetById(id);
             if (registration == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SemesterId = new SelectList(db.Semesters, "Id", "Name", registration.SemesterId);
-            ViewBag.DegreeId = new SelectList(db.Degrees, "Id", "Title", registration.DegreeId);
-            return View(registration);
+
+            var registrationViewModel = MapRegistrationToRegistrationViewModel(registration);
+            registrationViewModel.SemestersList = new SelectList(_unitOfWork.SemesterRepository.GetAll(), "Id", "Name", registrationViewModel.SemesterId);
+            registrationViewModel.DegreesList = new SelectList(_unitOfWork.DegreeRepository.GetAll(), "Id", "Title", registrationViewModel.DegreeId);
+            return View(registrationViewModel);
         }
 
         //
         // POST: /Registration/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Registration registration)
+        public ActionResult Edit(RegistrationViewModel registrationViewModel)
         {
             if (ModelState.IsValid)
             {
-                _registrationRepository.Update(registration);
-                _registrationRepository.Save();
-                return RedirectToAction("RegistrationsByStudentId", new { studentId = registration.Student.Id });
+                var registration = MapRegistrationViewModelToRegistration(registrationViewModel);
+                //_unitOfWork.RegistrationRepository.GetAll();
+                _unitOfWork.RegistrationRepository.Update(registration);
+                _unitOfWork.RegistrationRepository.Save();
+                return RedirectToAction("Index", new { id = registrationViewModel.StudentId });
             }
-            ViewBag.SemesterId = new SelectList(db.Semesters, "Id", "Name", registration.SemesterId);
-            ViewBag.DegreeId = new SelectList(db.Degrees, "Id", "Title", registration.DegreeId);
-            return View(registration);
+
+            registrationViewModel.SemestersList = new SelectList(_unitOfWork.SemesterRepository.GetAll(), "Id", "Name", registrationViewModel.SemesterId);
+            registrationViewModel.DegreesList = new SelectList(_unitOfWork.SemesterRepository.GetAll(), "Id", "Title", registrationViewModel.DegreeId);
+            return View(registrationViewModel);
         }
 
         //
@@ -107,7 +150,7 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            Registration registration = _registrationRepository.GetById(id);
+            Registration registration = _unitOfWork.RegistrationRepository.GetById(id);
             if (registration == null)
             {
                 return HttpNotFound();
@@ -121,18 +164,59 @@ namespace StudInfoSys.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            Registration registration = _registrationRepository.GetById(id);
-            _registrationRepository.Delete(registration);
-            _registrationRepository.Save();
+            Registration registration = _unitOfWork.RegistrationRepository.GetById(id);
+            var studentId = registration.Student.Id;
+            _unitOfWork.RegistrationRepository.Delete(registration);
+            _unitOfWork.RegistrationRepository.Save();
 
             //TODO: create a RegistrationViewModel that includes StudentId as one of its properties
-            return RedirectToAction("RegistrationsByStudentId", new { studentId = registration.Student.Id });
+            return RedirectToAction("Index", new { id = studentId });
         }
 
-        protected override void Dispose(bool disposing)
+        //protected override void Dispose(bool disposing)
+        //{
+        //    db.Dispose();
+        //    base.Dispose(disposing);
+        //}
+
+
+        private Registration MapRegistrationViewModelToRegistration(RegistrationViewModel registrationsViewModel)
         {
-            db.Dispose();
-            base.Dispose(disposing);
+            return new Registration
+                       {
+                           Id = registrationsViewModel.Id,
+                           DateOfRegistration = registrationsViewModel.DateOfRegistration,
+                           //Degree = _unitOfWork.DegreeRepository.GetById(registrationsViewModel.DegreeId),
+                           DegreeId = registrationsViewModel.DegreeId,
+                           SchoolYearFrom = registrationsViewModel.SchoolYearFrom,
+                           SchoolYearTo = registrationsViewModel.SchoolYearTo,
+                           //Semester = _unitOfWork.SemesterRepository.GetById(registrationsViewModel.SemesterId),
+                           SemesterId = registrationsViewModel.SemesterId,
+                           Student = _unitOfWork.StudentRepository.GetById(registrationsViewModel.StudentId),
+                       };
+
+        }
+
+        private RegistrationViewModel MapRegistrationToRegistrationViewModel(Registration registrations)
+        {
+            return new RegistrationViewModel
+                       {
+                           Id = registrations.Id,
+                           DateOfRegistration = registrations.DateOfRegistration,
+                           DegreeId = registrations.Degree.Id,
+                           SchoolYearFrom = registrations.SchoolYearFrom,
+                           SchoolYearTo = registrations.SchoolYearTo,
+                           SemesterId = registrations.Semester.Id,
+                           StudentId = registrations.Student.Id
+                       };
+
         }
     }
 }
+
+//Id = registrationsViewModel.Id,
+//                           DateOfRegistration = registrationsViewModel.DateOfRegistration,
+//                           Degree = _unitOfWork.DegreeRepository.GetById(registrationsViewModel.DegreeId),
+//                           SchoolYearFrom = registrationsViewModel.SchoolYearFrom,
+//                           SchoolYearTo = registrationsViewModel.SchoolYearTo,
+//                           Semester = _unitOfWork.SemesterRepository.GetById(registrationsViewModel.SemesterId)

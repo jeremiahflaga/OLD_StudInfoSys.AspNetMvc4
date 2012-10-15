@@ -38,6 +38,7 @@ namespace StudInfoSys.Repository
 
         public virtual void Update(T entity)
         {
+            DbSet.Attach(entity);
             Context.Entry(entity).State = EntityState.Modified;
         }
 

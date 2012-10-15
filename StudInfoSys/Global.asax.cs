@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -27,6 +29,13 @@ namespace StudInfoSys
             // NOTE: This will reset the database based on the Seed method in Configuration class
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<StudInfoSysContext, Configuration>());
             //Database.SetInitializer( new DropCreateDatabaseIfModelChanges<StudInfoSysContext>());
+
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            
+            Debug.WriteLine("DEBUG: " + e.ToString());
 
         }
     }

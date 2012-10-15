@@ -10,7 +10,7 @@ namespace StudInfoSys.Models
 
         public virtual ICollection<Registration> Registrations { get; set; }
 
-        [ScaffoldColumn((false))]
+        [ScaffoldColumn(false)]
         public virtual bool IsDeleted { get; set; }
     }
 }

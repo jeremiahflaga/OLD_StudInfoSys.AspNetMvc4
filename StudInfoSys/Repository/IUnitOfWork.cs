@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using StudInfoSys.Models;
@@ -8,6 +9,8 @@ namespace StudInfoSys.Repository
 {
     public interface IUnitOfWork
     {
+        DbContext Context { get; set; }
+
         IRepository<Student> StudentRepository { get; }
         IRepository<Registration> RegistrationRepository { get; }
         IRepository<SubjectGradesRecord> SubjectGradesRecordRepository { get; }

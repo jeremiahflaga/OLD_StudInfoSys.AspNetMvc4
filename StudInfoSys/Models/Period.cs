@@ -14,8 +14,9 @@ namespace StudInfoSys.Models
         [StringLength(50, MinimumLength = 1)]
         public virtual string Name { get; set; }
 
-        [Required]
+        
         public virtual Level Level { get; set; }
+        [Required]
         public virtual int LevelId { get; set; }
 
     }

@@ -4,6 +4,7 @@ using System.Data.Entity.Validation;
 using System.Diagnostics;
 using StudInfoSys.Models;
 using System.Data.Entity.Migrations;
+using StudInfoSys.Repository;
 
 namespace StudInfoSys.Migrations
 {
@@ -13,6 +14,8 @@ namespace StudInfoSys.Migrations
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
+
+            _unitOfWork = new UnitOfWork(new StudInfoSysContext());
         }
 
         protected override void Seed(StudInfoSysContext context)
@@ -38,6 +41,8 @@ namespace StudInfoSys.Migrations
             //context.Database.ExecuteSqlCommand("ALTER TABLE Subjects ADD UNIQUE (SubjectCode);");
             //context.Database.ExecuteSqlCommand("ALTER TABLE Subjects ADD CONSTRAINT con_first UNIQUE (SubjectCode);");
         }
+
+        private IUnitOfWork _unitOfWork;
 
         private Student[] CreateListOfStudents()
         {
@@ -72,7 +77,7 @@ namespace StudInfoSys.Migrations
                                {
                                    DateOfRegistration = new DateTime(2012, 06, 01),
                                    SchoolYearFrom = 2012, SchoolYearTo = 2013,
-                                   SemesterId = 1, DegreeId= 1, //IsDeleted = false,
+                                   SemesterId = 1, DegreeId= 1, IsDeleted = false,
                                    //Degree = new Degree{Id = 2},
                                    SubjectGradesRecords = CreateListOfSubjectGradesRecordsForFirstYear()
                                },
@@ -81,10 +86,38 @@ namespace StudInfoSys.Migrations
                                {
                                    DateOfRegistration = new DateTime(2012, 11, 01),
                                    SchoolYearFrom = 2012, SchoolYearTo = 2013,
-                                   SemesterId = 2, DegreeId= 1, //IsDeleted = false, 
+                                   SemesterId = 2, DegreeId= 1, IsDeleted = false, 
                                    SubjectGradesRecords = CreateListOfSubjectGradesRecordsForSecondYear()
                                }
                        };
+
+            //var semester1 = _unitOfWork.SemesterRepository.GetById(1);
+            //var semester2 = _unitOfWork.SemesterRepository.GetById(2);
+
+            //var degree1 = _unitOfWork.DegreeRepository.GetById(1);
+            //var degree2 = _unitOfWork.DegreeRepository.GetById(2);
+
+
+            //return new Registration[]
+            //           {
+            //               //First Year
+            //               new Registration
+            //                   {
+            //                       DateOfRegistration = new DateTime(2012, 06, 01),
+            //                       SchoolYearFrom = 2012, SchoolYearTo = 2013,
+            //                       Semester = semester1, Degree = degree1, //IsDeleted = false,
+            //                       //Degree = new Degree{Id = 2},
+            //                       SubjectGradesRecords = CreateListOfSubjectGradesRecordsForFirstYear()
+            //                   },
+            //               //Second Year
+            //               new Registration
+            //                   {
+            //                       DateOfRegistration = new DateTime(2012, 11, 01),
+            //                       SchoolYearFrom = 2012, SchoolYearTo = 2013,
+            //                       Semester = semester2, Degree = degree2, //IsDeleted = false, 
+            //                       SubjectGradesRecords = CreateListOfSubjectGradesRecordsForSecondYear()
+            //                   }
+            //           };
         }
 
         private SubjectGradesRecord[] CreateListOfSubjectGradesRecordsForFirstYear()

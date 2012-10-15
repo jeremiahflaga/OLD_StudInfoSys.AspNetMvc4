@@ -7,8 +7,9 @@ namespace StudInfoSys.Models
         [HiddenInput]
         public virtual int Id { get; set; }
 
-        [Required]
+        
         public virtual Period Period { get; set; }
+        [Required]
         public virtual int PeriodId { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:c}", NullDisplayText = "No Grade")]
@@ -20,7 +21,7 @@ namespace StudInfoSys.Models
         public virtual SubjectGradesRecord SubjectGradesRecord { get; set; }       
         //public virtual int SubjectGradesRecordId { get; set; } //for easy access to SubjectGradesRecord's Id
 
-        [ScaffoldColumn((false))]
+        [ScaffoldColumn(false)]
         public virtual bool IsDeleted { get; set; }
     }
 }

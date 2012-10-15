@@ -23,8 +23,9 @@ namespace StudInfoSys.Models
         [StringLength(20)]
         public virtual string Acronym { get; set; }
 
-        [Required]
+        
         public virtual Level Level { get; set; }
+        [Required]
         public virtual int LevelId { get; set; }
         
         public string LevelAndTitle { 

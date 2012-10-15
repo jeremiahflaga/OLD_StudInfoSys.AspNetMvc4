@@ -9,7 +9,7 @@ namespace StudInfoSys.Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DbContext _context;
+        public DbContext Context { get; set; }
 
         private IRepository<Student> _studentRepository;
 
@@ -31,7 +31,7 @@ namespace StudInfoSys.Repository
 
         public UnitOfWork(DbContext context)
         {
-            _context = context;
+            Context = context;
         }
 
         public IRepository<Student> StudentRepository
@@ -44,54 +44,54 @@ namespace StudInfoSys.Repository
             //    }
             //    return _studentRepository;
             //}
-            get { return _studentRepository ?? (_studentRepository = new StudentRepository(_context)); }
+            get { return _studentRepository ?? (_studentRepository = new StudentRepository(Context)); }
         }
 
         public IRepository<Registration> RegistrationRepository
         {
-            get { return _registrationRepository ?? (_registrationRepository = new RegistrationRepository(_context)); }
+            get { return _registrationRepository ?? (_registrationRepository = new RegistrationRepository(Context)); }
         }
 
         public IRepository<SubjectGradesRecord> SubjectGradesRecordRepository
         {
             get {
-                return _subjectGradesRecordRepository ?? (_subjectGradesRecordRepository = new SubjectGradesRecordRepository(_context));
+                return _subjectGradesRecordRepository ?? (_subjectGradesRecordRepository = new SubjectGradesRecordRepository(Context));
             }
         }
 
         public IRepository<Grade> GradeRepository
         {
-            get { return _gradeRepository ?? (_gradeRepository = new GradeRepository(_context)); }
+            get { return _gradeRepository ?? (_gradeRepository = new GradeRepository(Context)); }
         }
 
         public IRepository<Degree> DegreeRepository
         {
-            get { return _degreeRepository ?? (_degreeRepository = new DegreeRepository(_context)); }
+            get { return _degreeRepository ?? (_degreeRepository = new DegreeRepository(Context)); }
         }
 
         public IRepository<Level> LevelRepository
         {
-            get { return _levelRepository ?? (_levelRepository = new LevelRepository(_context)); }
+            get { return _levelRepository ?? (_levelRepository = new LevelRepository(Context)); }
         }
 
         public IRepository<Period> PeriodRepository
         {
-            get { return _periodRepository ?? (_periodRepository = new PeriodRepository(_context)); }
+            get { return _periodRepository ?? (_periodRepository = new PeriodRepository(Context)); }
         }
 
         public IRepository<Semester> SemesterRepository
         {
-            get { return _semesterRepository ?? (_semesterRepository = new SemesterRepository(_context)); }
+            get { return _semesterRepository ?? (_semesterRepository = new SemesterRepository(Context)); }
         }
 
         public IRepository<Subject> SubjectRepository
         {
-            get { return _subjectRepository ?? (_subjectRepository = new SubjectRepository(_context)); }
+            get { return _subjectRepository ?? (_subjectRepository = new SubjectRepository(Context)); }
         }
 
         public void Save()
         {
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
     }
 }
