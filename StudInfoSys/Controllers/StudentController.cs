@@ -24,9 +24,10 @@ namespace StudInfoSys.Controllers
         //
         // GET: /Student/
 
-        public ActionResult Index()
+        public ViewResult Index()
         {
             return View(_studentRepository.GetAll().OrderBy(s => new { s.LastName, s.FirstName }).ToList());
+            //return View(
         }
 
         //
