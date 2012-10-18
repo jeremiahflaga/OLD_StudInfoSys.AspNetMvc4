@@ -26,7 +26,7 @@ namespace StudInfoSys.Controllers
 
         public ViewResult Index()
         {
-            return View(_studentRepository.GetAll().OrderBy(s=> s.LastName).ThenBy(s2=>s2.FirstName));
+            return View(_studentRepository.GetAll().OrderBy(s=> s.LastName).ThenBy(s2=>s2.FirstName).ToList());
         }
 
         //

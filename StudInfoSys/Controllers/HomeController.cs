@@ -6,7 +6,7 @@ namespace StudInfoSys.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "This app records student grades of from Preparatory level to College and Graduate levels.";
+            ViewBag.Message = "This app records student grades from Preparatory level to College and Graduate levels.";
 
             return View();
         }

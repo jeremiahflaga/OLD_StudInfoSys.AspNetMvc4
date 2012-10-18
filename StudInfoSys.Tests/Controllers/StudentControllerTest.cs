@@ -73,7 +73,7 @@ namespace StudInfoSys.Tests.Controllers
             }
 
             [TestMethod]
-            public void GetAll_the_number_of_Students_in_the_model_should_be_N()
+            public void the_number_of_Students_in_the_model_should_be_N()
             {
                 // Arrange
                 var listOfStudents = new List<Student>{
