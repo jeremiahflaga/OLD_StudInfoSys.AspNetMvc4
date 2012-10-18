@@ -6,6 +6,7 @@ using StudInfoSys.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -21,7 +22,8 @@ namespace StudInfoSys.Tests.Controllers
             private Mock<IStudentRepository> _mockStudentRepository;
             public When_trying_to_load_index_page ()
 	        {
-                _mockStudentRepository = new Mock<IStudentRepository>();
+                _mockStudentRepository = new Mock<IStudentRepository>() 
+                                            { DefaultValue = DefaultValue.Mock };
 	        }
 
             private StudentController GetStudentController()
@@ -43,25 +45,17 @@ namespace StudInfoSys.Tests.Controllers
                 Assert.IsInstanceOfType(result, typeof(ViewResult));
             }
             
-            //JBOY: I think this should be inside the test for the Irepository
             [TestMethod]
-            public void a_list_of_Students_should_be_returned_as_the_model()
+            public void a_list_of_Students_should_be_returned_as_the_Model()
             {
-                // Arrange
-                var listOfStudents = new List<Student>();
-
-                _mockStudentRepository
-                    .Setup(x => x.GetAll())
-                    .Returns(() => listOfStudents.AsQueryable())
-                    .Verifiable();
-
+                // Arrange                
                 var studentController = GetStudentController();
 
                 // Act
                 var result = studentController.Index();
 
                 // Assert
-                _mockStudentRepository.Verify();
+                Assert.IsInstanceOfType(result.Model, typeof(IEnumerable<Student>));
             }
 
 
@@ -78,26 +72,60 @@ namespace StudInfoSys.Tests.Controllers
                 Assert.IsNotNull(result.Model);
             }
 
+            [TestMethod]
+            public void GetAll_the_number_of_Students_in_the_model_should_be_N()
+            {
+                // Arrange
+                var listOfStudents = new List<Student>{
+                    new Student(),
+                    new Student(),
+                    new Student()
+                };
 
-            //[TestMethod]
-            //public void the_list_of_Students_should_be_sorted_by_Lastname_and_Firstname()
-            //{
-            //    //// Arrange
-            //    //var listOfStudents = new List<Student>();
+                _mockStudentRepository
+                    .Setup(x => x.GetAll())
+                    .Returns(listOfStudents.AsQueryable());
+                var studentController = GetStudentController();
 
-            //    //_mockStudentRepository
-            //    //    .Setup(x => x.GetAll())
-            //    //    .Returns(() => listOfStudents.AsQueryable())
-            //    //    .Verifiable();
+                //var students = _mockStudentRepository.Object.GetAll();
+                //students.OrderBy(
 
-            //    //var studentController = GetStudentController();
+                // Act
+                var result = studentController.Index();
+                var model = result.Model as IEnumerable<Student>;
 
-            //    //// Act
-            //    //var result = studentController.Index();
+                // Assert
+                Assert.AreEqual(model.Count(), listOfStudents.Count());
+            }
 
-            //    //// Assert
-            //    //_mockStudentRepository.Verify
-            //}
+            [TestMethod]
+            public void the_list_of_Students_should_be_sorted_by_Lastname_and_Firstname()
+            {
+                // Arrange
+                var listOfStudents = new List<Student>{
+                    new Student{FirstName="2-Second", LastName="Flaga"},
+                    new Student{FirstName="1-First", LastName="Flaga"},
+                    new Student{FirstName="3-Third", LastName="Floro"}
+                };
+                                
+                _mockStudentRepository
+                    .Setup(x => x.GetAll())
+                    .Returns(listOfStudents.AsQueryable());
+                var studentController = GetStudentController();
+
+                var students = _mockStudentRepository.Object.GetAll();
+                var studentsOrderedByLastName = students.OrderBy(s => s.LastName).ToList();
+
+                // Act
+                var result = studentController.Index();
+                var model = (result.Model as IEnumerable<Student>).ToList();
+
+                // Assert
+                var sortedListOfStudents = listOfStudents.OrderBy(s=>s.LastName).ThenBy(s2=>s2.FirstName).ToList();
+                Assert.AreEqual(model[0], sortedListOfStudents[0]);
+                Assert.AreEqual(model[1], sortedListOfStudents[1]);
+                Assert.AreEqual(model[2], sortedListOfStudents[2]);
+            }
         }
     }
 }
