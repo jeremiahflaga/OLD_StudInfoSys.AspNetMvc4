@@ -35,6 +35,7 @@ namespace StudInfoSys.Models
 
 
         [DisplayFormat(NullDisplayText = "")]
+        [Display(Name = "Final Grade")]
         public decimal? FinalGrade
         {
             get

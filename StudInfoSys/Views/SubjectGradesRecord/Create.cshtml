@@ -1,0 +1,56 @@
+﻿@model StudInfoSys.ViewModels.SubjectGradesRecordViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>SubjectGradesRecord</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubjectId, "Subject")
+        </div>
+        <div class="editor-field">
+            @*@Html.DropDownList("SubjectId", String.Empty)*@
+            @Html.DropDownListFor(model => model.SubjectId, Model.SubjectsList, "Select...")
+            @Html.ValidationMessageFor(model => model.SubjectId)
+        </div>
+
+        <div id="grades-list" class="editor-label">
+            TODO: List of Grades for the current registration
+
+
+        </div>
+
+        @foreach (var period in Model.PeriodsList)
+        {
+            var newGrade = new StudInfoSys.Models.Grade{
+                PeriodId = period.Id,
+                GradeValue = 93,
+            };
+            Html.Partial("_CreateGrades", newGrade);
+            Model.Grades.Add(newGrade);
+           
+            <div>asdf @period.Name</div> 
+            <input type="text" value="@newGrade.GradeValue" />
+        }
+
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

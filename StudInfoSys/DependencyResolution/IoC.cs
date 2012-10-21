@@ -42,6 +42,7 @@ namespace StudInfoSys.DependencyResolution {
                             x.For<IPeriodRepository>().Use<PeriodRepository>();
                             x.For<ISemesterRepository>().Use<SemesterRepository>();
                             x.For<ISubjectRepository>().Use<SubjectRepository>();
+                            x.For<IUnitOfWork>().Use<UnitOfWork>();
                             x.For<DbContext>().Use<StudInfoSysContext>();
                             //x.For<IDeletableEntity>().Use<DeletableEntity>();
                         });

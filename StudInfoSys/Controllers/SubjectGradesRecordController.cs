@@ -11,12 +11,12 @@ using StudInfoSys.ViewModels;
 
 namespace StudInfoSys.Controllers
 {
-    public class GradeController : Controller
+    public class SubjectGradesRecordController : Controller
     {
         //private StudInfoSysContext db = new StudInfoSysContext();
         IUnitOfWork _unitOfWork;
 
-        public GradeController(IUnitOfWork unitOfWork)
+        public SubjectGradesRecordController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -37,13 +37,19 @@ namespace StudInfoSys.Controllers
         /// <summary>
         /// Grades record by registration id.
         /// </summary>
-        /// <param name="id">The registration id.</param>
+        /// <param name="registrationId">The registration id.</param>
         /// <returns></returns>
-        public ViewResult SubjectGradesRecordByRegistrationId(int id)
+        /// [ChildActionOnly]
+        public ViewResult SubjectGradesRecordByRegistrationId(int registrationId)
         {
             //var subjectGradesRecords = _unitOfWork.SubjectGradesRecordRepository.SearchFor(sgr => sgr.Registration.Id == id, false).Include(sgr => sgr.Subject);
             //var subjectGradesRecordViewModel = MapListOfSubjectGradesRecordToListOfSubjectGradesRecordViewModel(subjectGradesRecords);
-            return View("Index", _unitOfWork.SubjectGradesRecordRepository.SearchFor(sgr => sgr.Registration.Id == id, false).Include(sgr => sgr.Subject).Include(sgr => sgr.Grades));
+            ViewBag.RegistrationId = registrationId;
+            return View("Index", _unitOfWork.SubjectGradesRecordRepository.SearchFor(sgr => sgr.Registration.Id == registrationId, false)
+                .Include(sgr => sgr.Subject)
+                .Include(sgr => sgr.Registration)
+                .Include(sgr => sgr.Grades)
+                );
         }
 
         //
@@ -62,10 +68,26 @@ namespace StudInfoSys.Controllers
         //
         // GET: /Grade/Create
 
-        public ActionResult Create()
+        /// <summary>
+        /// Creates a SubjectGradesRecord for the specified registration id.
+        /// </summary>
+        /// <param name="id">The registration id.</param>
+        /// <returns></returns>
+        public ActionResult Create(int id)
         {
-            ViewBag.SubjectId = new SelectList(_unitOfWork.SubjectRepository.GetAll().Distinct(), "Id", "SubjectCode");
-            return View();
+            var levelIdOfCurrentRegistration = _unitOfWork.RegistrationRepository.GetById(id).Degree.LevelId;
+            var subjects = _unitOfWork.SubjectRepository.GetAll();
+            var registrations = _unitOfWork.RegistrationRepository.GetAll();
+            var periods = _unitOfWork.PeriodRepository.GetAll();
+            var subjectGradesRecordViewModel = new SubjectGradesRecordViewModel
+            {
+                RegistrationId = id,
+                SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll(), "Id", "Name"),
+                PeriodsList = periods.Where(p => p.LevelId == levelIdOfCurrentRegistration),
+                Grades = new List<Grade>()
+            };
+            
+            return View(subjectGradesRecordViewModel);
         }
 
         //
@@ -147,8 +169,8 @@ namespace StudInfoSys.Controllers
             {
                 Id = subjectGradesRecordViewModel.Id, 
                 Registration = _unitOfWork.RegistrationRepository.GetById(subjectGradesRecordViewModel.RegistrationId),
-                SubjectId = subjectGradesRecordViewModel.Subject.Id,
-                Grades = subjectGradesRecordViewModel.Grades
+                SubjectId = subjectGradesRecordViewModel.Id,
+                //Grades = subjectGradesRecordViewModel.Grades
             };
         }
 
@@ -158,8 +180,11 @@ namespace StudInfoSys.Controllers
             {
                 //Id = subjectGradesRecord.Id,
                 RegistrationId = subjectGradesRecord.Registration.Id,
-                Subject = subjectGradesRecord.Subject,
-                Grades = subjectGradesRecord.Grades
+                SubjectId = subjectGradesRecord.Subject.Id,
+                LevelId = subjectGradesRecord.Registration.Degree.LevelId
+                //SubjectCode = subjectGradesRecord.Subject.SubjectCode,
+                //SubjectName = subjectGradesRecord.Subject.Name
+                //Grades = subjectGradesRecord.Grades
             };
         }
 

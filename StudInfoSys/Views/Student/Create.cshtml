@@ -40,7 +40,7 @@
             @Html.LabelFor(model => model.Gender)   
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.Gender, Model.GendersList, new {style="font-size: 30px;"})
+            @Html.DropDownListFor(model => model.Gender, Model.GendersList)
             @Html.ValidationMessageFor(model => model.Gender)
         </div>
 
@@ -72,8 +72,8 @@
             @Html.LabelFor(model => model.StudentStatus)   
         </div>
         <div class="editor-field">
-            @Html.DropDownListFor(model => model.StudentStatus, Model.StudentStatusList, new {style="font-size: 30px;"})
-            @Html.ValidationMessageFor(model => model.Gender)
+            @Html.DropDownListFor(model => model.StudentStatus, Model.StudentStatusList)
+            @Html.ValidationMessageFor(model => model.StudentStatus)
         </div>
 
         <p>

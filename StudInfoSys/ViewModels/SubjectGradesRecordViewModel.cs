@@ -13,45 +13,45 @@ namespace StudInfoSys.ViewModels
         [HiddenInput]
         public int Id { get; set; }
         
-        public Subject Subject { get; set; }
+        //public Subject Subject { get; set; }
 
-        private int myVar;
+        //[Display(Name = "Subject")]
+        public int SubjectId { get; set; }
 
-        public int MyProperty
-        {
-            get { return myVar; }
-            set { myVar = value; }
-        }
-        
+        public List<Grade> Grades { get; set; }
 
-        private ICollection<Grade> _grades;
-        public ICollection<Grade> Grades
-        {
-            get
-            {
-                return _grades;
-            }
-            set
-            {
-                _grades.Clear();
-                var grades = value;
-                foreach (var grade in grades)
-                {
-                    _grades.Add(new Grade
-                    {
-                        GradeValue = grade.GradeValue,
-                        IsDeleted = grade.IsDeleted,
-                        Period = grade.Period
-                    });
-                }
-            }
-        }
+        public Grade CurrentGrade { get; set; }
+
+        //private ICollection<Grade> _grades;
+        //public ICollection<Grade> Grades
+        //{
+        //    get
+        //    {
+        //        return _grades;
+        //    }
+        //    set
+        //    {
+        //        _grades.Clear();
+        //        var grades = value;
+        //        foreach (var grade in grades)
+        //        {
+        //            _grades.Add(new Grade
+        //            {
+        //                GradeValue = grade.GradeValue,
+        //                IsDeleted = grade.IsDeleted,
+        //                Period = grade.Period
+        //            });
+        //        }
+        //    }
+        //}
 
         //for navigation only
         //public virtual Registration Registration { get; set; }
         public int RegistrationId { get; set; } //for easy access to Registration's Id
+        public int LevelId { get; set; }
 
         [DisplayFormat(NullDisplayText = "")]
+        [Display(Name = "Final Grade")]
         public decimal? FinalGrade
         {
             get
@@ -65,7 +65,8 @@ namespace StudInfoSys.ViewModels
         }
 
 
-        IEnumerable<SelectListItem> SubjectsList { get; set; }
+        public IEnumerable<SelectListItem> SubjectsList { get; set; }
+        public IEnumerable<Period> PeriodsList { get; set; }
 
     }
 }

@@ -9,14 +9,15 @@ namespace StudInfoSys.Models
         [HiddenInput]
         public virtual int Id { get; set; }
 
-
+        [Display(Name="Subject Code")]
         public string SubjectCode { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 1)]
+        [StringLength(100, MinimumLength = 1)]
         public virtual string Name { get; set; }
 
         [Range(0, 10)]
+        [Display(Name = "Units")]
         public virtual int NumberOfUnits { get; set; }
 
         

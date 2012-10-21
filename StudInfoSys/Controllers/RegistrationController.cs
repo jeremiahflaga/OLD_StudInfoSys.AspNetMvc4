@@ -71,6 +71,7 @@ namespace StudInfoSys.Controllers
         /// <returns></returns>
         public ActionResult Create(int id)
         {
+            //var periods = _unitOfWork.PeriodRepository.GetAll();
             var registrationViewModel = new RegistrationViewModel
                                             {
                                                 StudentId = id,

@@ -14,10 +14,12 @@ namespace StudInfoSys.ViewModels
 
         [Required]
         [Display(Name = "From School Year")]
+        [Range(1800, 9999)]
         public int SchoolYearFrom { get; set; }
 
         [Required]
         [Display(Name = "To School Year")]
+        [Range(1800, 9999)]
         public int SchoolYearTo { get; set; }
 
         [Required]

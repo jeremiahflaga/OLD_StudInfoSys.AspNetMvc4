@@ -14,10 +14,12 @@ namespace StudInfoSys.Models
         
         [Required]
         [Display(Name = "From School Year")]
+        [Range(1800, 9999)]
         public virtual int SchoolYearFrom { get; set; }
 
         [Required]
         [Display(Name = "To School Year")]
+        [Range(1800, 9999)]
         public virtual int SchoolYearTo { get; set; }
 
         

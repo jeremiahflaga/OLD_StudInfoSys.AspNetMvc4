@@ -176,7 +176,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\GradeController.cs" />
+    <Compile Include="Controllers\SubjectGradesRecordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -364,11 +364,12 @@
     <Content Include="Views\Registration\Edit.cshtml" />
     <Content Include="Views\Registration\Delete.cshtml" />
     <Content Include="Views\Student\_StudentsTable.cshtml" />
-    <Content Include="Views\Grade\Index.cshtml" />
-    <Content Include="Views\Grade\Details.cshtml" />
-    <Content Include="Views\Grade\Create.cshtml" />
-    <Content Include="Views\Grade\Edit.cshtml" />
-    <Content Include="Views\Grade\Delete.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\Index.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\Details.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\Create.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\Edit.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\Delete.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\_CreateGrades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
