@@ -125,7 +125,12 @@ namespace StudInfoSys.Controllers
             _studentRepository.Save();
             return RedirectToAction("Index");
         }
-        
+
+        public ViewResult SearchByLastName(string lastName)
+        {
+            return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower() == lastName.ToLower(), false));
+        }
+
         #region Private methods
 
         private static StudentViewModel MapStudentToStudentViewModel(Student student)
@@ -161,7 +166,7 @@ namespace StudInfoSys.Controllers
             };
             return studViewModel;
         }
-
+        
         #endregion
 
     }

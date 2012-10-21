@@ -361,6 +361,7 @@
     <Content Include="Views\Registration\Create.cshtml" />
     <Content Include="Views\Registration\Edit.cshtml" />
     <Content Include="Views\Registration\Delete.cshtml" />
+    <Content Include="Views\Student\_StudentsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
