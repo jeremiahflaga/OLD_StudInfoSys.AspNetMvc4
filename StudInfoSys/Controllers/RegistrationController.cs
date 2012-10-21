@@ -41,7 +41,10 @@ namespace StudInfoSys.Controllers
         public ActionResult RegistrationsByStudentId(int studentId)
         {
             ViewBag.StudentId = studentId;
-            var registrations = _unitOfWork.RegistrationRepository.SearchFor(r => r.Student.Id == studentId, false).Include(r => r.Semester).Include(r => r.Degree);
+            var registrations = _unitOfWork.RegistrationRepository.SearchFor(r => r.Student.Id == studentId, false)
+                .Include(r => r.Semester)
+                .Include(r => r.Degree)
+                .OrderBy(r => r.SchoolYearFrom).ThenBy(r => r.SchoolYearTo);
             return View("Index", registrations);
         }
 
@@ -194,7 +197,6 @@ namespace StudInfoSys.Controllers
                            SemesterId = registrationsViewModel.SemesterId,
                            Student = _unitOfWork.StudentRepository.GetById(registrationsViewModel.StudentId),
                        };
-
         }
 
         private RegistrationViewModel MapRegistrationToRegistrationViewModel(Registration registrations)
@@ -209,7 +211,6 @@ namespace StudInfoSys.Controllers
                            SemesterId = registrations.Semester.Id,
                            StudentId = registrations.Student.Id
                        };
-
         }
     }
 }

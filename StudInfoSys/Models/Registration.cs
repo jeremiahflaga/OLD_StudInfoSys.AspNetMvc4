@@ -33,6 +33,7 @@ namespace StudInfoSys.Models
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Date of Registration")]
+        [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:MMMM dd,yyyy}", ApplyFormatInEditMode = true)]
         public virtual DateTime DateOfRegistration { get; set; }
 
         public virtual ICollection<SubjectGradesRecord> SubjectGradesRecords { get; set; }

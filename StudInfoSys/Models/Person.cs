@@ -20,6 +20,7 @@ namespace StudInfoSys.Models
 
         [Required]
         [Display(Name = "Date Of Birth")]
+        [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:MMMM dd,yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public virtual DateTime DateOfBirth { get; set; }
 

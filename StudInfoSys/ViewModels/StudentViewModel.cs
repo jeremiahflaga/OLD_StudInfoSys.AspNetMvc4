@@ -27,6 +27,7 @@ namespace StudInfoSys.ViewModels
 
         [Required]
         [Display(Name = "Date Of Birth", Prompt="Month/Day/Year")]
+        [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:MMMM dd,yyyy}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 

@@ -23,7 +23,7 @@ namespace StudInfoSys.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //create Table per Type 
-            modelBuilder.Entity<Student>().ToTable("Student");
+            modelBuilder.Entity<Student>().ToTable("Students");
 
 
             base.OnModelCreating(modelBuilder);

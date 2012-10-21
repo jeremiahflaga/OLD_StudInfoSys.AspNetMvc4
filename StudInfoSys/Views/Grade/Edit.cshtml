@@ -1,0 +1,37 @@
+﻿@model StudInfoSys.Models.SubjectGradesRecord
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>SubjectGradesRecord</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubjectId, "Subject")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("SubjectId", String.Empty)
+            @Html.ValidationMessageFor(model => model.SubjectId)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

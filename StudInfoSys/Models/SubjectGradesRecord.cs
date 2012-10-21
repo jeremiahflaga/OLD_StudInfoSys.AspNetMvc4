@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace StudInfoSys.Models
 {
@@ -31,5 +32,21 @@ namespace StudInfoSys.Models
 
         [ScaffoldColumn(false)]
         public virtual bool IsDeleted { get; set; }
+
+
+        [DisplayFormat(NullDisplayText = "")]
+        public decimal? FinalGrade
+        {
+            get
+            {
+                if (!Grades.Any(g => g.GradeValue == null))
+                {
+                    return Grades.Average(g => g.GradeValue);
+                }
+                return null;
+            }
+        }
+
+
     }
 }

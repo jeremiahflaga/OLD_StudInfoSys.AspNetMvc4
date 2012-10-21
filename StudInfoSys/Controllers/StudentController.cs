@@ -128,7 +128,7 @@ namespace StudInfoSys.Controllers
 
         public ViewResult SearchByLastName(string lastName)
         {
-            return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower() == lastName.ToLower(), false));
+            return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower() == lastName.ToLower(), false).OrderBy(s => s.LastName).ThenBy(s => s.FirstName));
         }
 
         #region Private methods
