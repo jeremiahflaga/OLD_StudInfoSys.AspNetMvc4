@@ -424,7 +424,7 @@ label.checkbox {
     display: inline;
 }
 
-input, textarea {
+input, textarea, select {
     border: 1px solid #e2e2e2;
     background: #fff;
     color: #333;
@@ -439,7 +439,7 @@ textarea {
     width: 500px;
 }
 
-    input:focus, textarea:focus {
+    input:focus, textarea:focus, select:focus{
         border: 1px solid #7ac0da;
     }
 
@@ -506,7 +506,7 @@ textarea {
     display: none;
 }
 
-input.input-validation-error {
+input.input-validation-error, select.input-validation-error {
     border: 1px solid #e80c4d;
 }
 
