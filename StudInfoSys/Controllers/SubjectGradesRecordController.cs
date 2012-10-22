@@ -21,9 +21,6 @@ namespace StudInfoSys.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        //
-        // GET: /Grade/
-
         /// <summary>
         /// Indexes the specified registration id.
         /// </summary>
@@ -51,9 +48,6 @@ namespace StudInfoSys.Controllers
                 );
         }
 
-        //
-        // GET: /Grade/Details/5
-
         public ActionResult Details(int id = 0)
         {
             SubjectGradesRecord subjectgradesrecord = _unitOfWork.SubjectGradesRecordRepository.GetById(id);
@@ -63,9 +57,6 @@ namespace StudInfoSys.Controllers
             }
             return View(subjectgradesrecord);
         }
-
-        //
-        // GET: /Grade/Create
 
         /// <summary>
         /// Creates a SubjectGradesRecord for the specified registration id.
@@ -87,9 +78,6 @@ namespace StudInfoSys.Controllers
             return View(subjectGradesRecordViewModel);
         }
 
-        //
-        // POST: /Grade/Create
-
         [HttpPost]
         public ActionResult Create(SubjectGradesRecordViewModel subjectGradesRecordViewModel)
         {
@@ -105,9 +93,6 @@ namespace StudInfoSys.Controllers
             return View(subjectGradesRecordViewModel);
         }
 
-        //
-        // GET: /Grade/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
             SubjectGradesRecord subjectgradesrecord = _unitOfWork.SubjectGradesRecordRepository.GetById(id);
@@ -118,9 +103,6 @@ namespace StudInfoSys.Controllers
             ViewBag.SubjectId = new SelectList(_unitOfWork.SubjectRepository.GetAll().Distinct(), "Id", "SubjectCode", subjectgradesrecord.SubjectId);
             return View(subjectgradesrecord);
         }
-
-        //
-        // POST: /Grade/Edit/5
 
         [HttpPost]
         public ActionResult Edit(SubjectGradesRecord subjectgradesrecord)
@@ -135,9 +117,6 @@ namespace StudInfoSys.Controllers
             return View(subjectgradesrecord);
         }
 
-        //
-        // GET: /Grade/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             SubjectGradesRecord subjectgradesrecord = _unitOfWork.SubjectGradesRecordRepository.GetById(id);
@@ -147,9 +126,6 @@ namespace StudInfoSys.Controllers
             }
             return View(subjectgradesrecord);
         }
-
-        //
-        // POST: /Grade/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
