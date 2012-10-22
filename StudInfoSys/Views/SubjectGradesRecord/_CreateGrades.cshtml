@@ -1,40 +1,15 @@
 ﻿@model StudInfoSys.ViewModels.GradeViewModel
 @using StudInfoSys.Helpers
 
-
-@using (Html.BeginCollectionItem("grades"))
+@using (Html.BeginCollectionItem("gradeviewmodels"))
 {
+    @Html.HiddenFor(model => model.PeriodId)
+    
     <div class="editor-label">
-            @Html.DisplayFor(model => model.PeriodName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.GradeValue)
-            @Html.ValidationMessageFor(model => model.GradeValue)
-        </div>
-
+        @Html.DisplayFor(model => model.PeriodName)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.GradeValue)
+        @Html.ValidationMessageFor(model => model.GradeValue)
+    </div>
 }
-
-
-
-
-
-
-@*
-@model IEnumerable<StudInfoSys.ViewModels.GradeViewModel>
-
-@{
-    var modelArray = Model.ToArray();
-    for (int i = 0; i < modelArray.Count(); i++)
-    {
-        <div class="editor-label">
-            @Html.DisplayFor(model => modelArray[i].PeriodName)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => modelArray[i].GradeValue)
-            @Html.ValidationMessageFor(model => modelArray[i].GradeValue)
-        </div>
-    }
-        
-}
-
-*@

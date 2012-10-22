@@ -18,7 +18,7 @@ namespace StudInfoSys.Helpers
         /// You might also be wondering what Html.BeginCollectionItem() is. It’s a HTML helper I made that you can use when rendering a sequence of items that should later be model bound to a single collection. You give it some name for your collection, and it opens a new template context for that collection name, plus a random unique field ID prefix. It also automatically renders a hidden field, which in this case is called gifts.index, populating it with that unique ID, so when you later model bind to a list, ASP.NET MVC 2 will know that all the fields in this context should be associated with a single .NET object.
         /// </summary>
         /// <param name="html">The HTML.</param>
-        /// <param name="collectionName">Name of the collection.</param>
+        /// <param name="collectionName">Name of the collection. The Name you set in the BeginCollectionItem block must match the member name of the collection on the class (BeginCollectionItem(“Foos”) where MyFoo.Foos is a List) </param>
         /// <returns></returns>
         public static IDisposable BeginCollectionItem(this HtmlHelper html, string collectionName)
         {

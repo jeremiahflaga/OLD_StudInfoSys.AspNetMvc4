@@ -18,7 +18,7 @@ namespace StudInfoSys.ViewModels
         //[Display(Name = "Subject")]
         public int SubjectId { get; set; }
 
-        public List<GradeViewModel> Grades { get; set; }
+        public List<GradeViewModel> GradeViewModels { get; set; }
 
         //public Grade CurrentGrade { get; set; }
 
@@ -56,9 +56,9 @@ namespace StudInfoSys.ViewModels
         {
             get
             {
-                if (!Grades.Any(g => g.GradeValue == null))
+                if (!GradeViewModels.Any(g => g.GradeValue == null))
                 {
-                    return Grades.Average(g => g.GradeValue);
+                    return GradeViewModels.Average(g => g.GradeValue);
                 }
                 return null;
             }

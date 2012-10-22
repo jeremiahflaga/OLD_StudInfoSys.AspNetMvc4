@@ -47,7 +47,6 @@ namespace StudInfoSys.Controllers
             ViewBag.RegistrationId = registrationId;
             return View("Index", _unitOfWork.SubjectGradesRecordRepository.SearchFor(sgr => sgr.Registration.Id == registrationId, false)
                 .Include(sgr => sgr.Subject)
-                .Include(sgr => sgr.Registration)
                 .Include(sgr => sgr.Grades)
                 );
         }
@@ -82,7 +81,7 @@ namespace StudInfoSys.Controllers
                 RegistrationId = id,
                 SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll(), "Id", "Name"),
                 PeriodsList = _unitOfWork.PeriodRepository.GetAll().Where(p => p.LevelId == levelIdOfCurrentRegistration),
-                Grades = new List<GradeViewModel>()
+                GradeViewModels = new List<GradeViewModel>()
             };
             
             return View(subjectGradesRecordViewModel);
@@ -160,8 +159,7 @@ namespace StudInfoSys.Controllers
             _unitOfWork.SubjectGradesRecordRepository.Save();
             return RedirectToAction("Index");
         }
-
-
+        
         private SubjectGradesRecord MapSubjectGradesRecordViewModelToSubjectGradesRecord(SubjectGradesRecordViewModel subjectGradesRecordViewModel)
         {
             var subjectGradesRecord =  new SubjectGradesRecord
@@ -169,40 +167,50 @@ namespace StudInfoSys.Controllers
                 Id = subjectGradesRecordViewModel.Id, 
                 Registration = _unitOfWork.RegistrationRepository.GetById(subjectGradesRecordViewModel.RegistrationId),
                 SubjectId = subjectGradesRecordViewModel.SubjectId,
-                //Subject = _unitOfWork.SubjectRepository.GetById(subjectGradesRecordViewModel.SubjectId),
                 Grades = new List<Grade>()
             };
-
-            //foreach (var grade in subjectGradesRecordViewModel.Grades)
-            //{
-            //    subjectGradesRecord.Grades.Add(new Grade
-            //    {
-            //        PeriodId = grade.PeriodId,
-            //        GradeValue = grade.GradeValue,
-                    
-            //    });
-            //}
-
+            foreach (var grade in subjectGradesRecordViewModel.GradeViewModels)
+            {
+                subjectGradesRecord.Grades.Add(new Grade
+                {
+                    PeriodId = grade.PeriodId,
+                    GradeValue = grade.GradeValue
+                });
+            }
             return subjectGradesRecord;
         }
+
+        //private ICollection<Grade> MapListOfGradeViewModelsToListOfGrades(IEnumerable<GradeViewModel> listOfGradeViewModel)
+        //{
+        //    var listOfGrades = new List<Grade>();
+        //    foreach (var grade in listOfGradeViewModel)
+        //    {
+        //        listOfGrades.Add(MapGradeViewModelToGrade(grade));
+        //    }
+        //    return listOfGrades;
+        //}
+
+        //private Grade MapGradeViewModelToGrade(GradeViewModel gradeViewModel)
+        //{
+        //    return new Grade
+        //        {
+        //            PeriodId = gradeViewModel.PeriodId,
+        //            GradeValue = gradeViewModel.GradeValue,
+        //        };
+        //}
 
         private SubjectGradesRecordViewModel MapSubjectGradesRecordToSubjectGradesRecordViewModel(SubjectGradesRecord subjectGradesRecord)
         {
             var subjectGradesRecordViewModel = new SubjectGradesRecordViewModel()
             {
-                //Id = subjectGradesRecord.Id,
                 RegistrationId = subjectGradesRecord.Registration.Id,
                 SubjectId = subjectGradesRecord.Subject.Id,
                 LevelId = subjectGradesRecord.Registration.Degree.LevelId
-                //SubjectCode = subjectGradesRecord.Subject.SubjectCode,
-                //SubjectName = subjectGradesRecord.Subject.Name
-                //Grades = subjectGradesRecord.Grades
-                
             };
 
             foreach (var grade in subjectGradesRecord.Grades)
             {
-                subjectGradesRecordViewModel.Grades.Add(new GradeViewModel
+                subjectGradesRecordViewModel.GradeViewModels.Add(new GradeViewModel
                 {
                     PeriodId = grade.PeriodId,
                     PeriodName = grade.Period.Name,
