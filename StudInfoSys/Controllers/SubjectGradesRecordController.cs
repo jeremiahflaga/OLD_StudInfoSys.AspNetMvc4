@@ -76,15 +76,13 @@ namespace StudInfoSys.Controllers
         public ActionResult Create(int id)
         {
             var levelIdOfCurrentRegistration = _unitOfWork.RegistrationRepository.GetById(id).Degree.LevelId;
-            var subjects = _unitOfWork.SubjectRepository.GetAll();
-            var registrations = _unitOfWork.RegistrationRepository.GetAll();
-            var periods = _unitOfWork.PeriodRepository.GetAll();
+            
             var subjectGradesRecordViewModel = new SubjectGradesRecordViewModel
             {
                 RegistrationId = id,
                 SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll(), "Id", "Name"),
-                PeriodsList = periods.Where(p => p.LevelId == levelIdOfCurrentRegistration),
-                Grades = new List<Grade>()
+                PeriodsList = _unitOfWork.PeriodRepository.GetAll().Where(p => p.LevelId == levelIdOfCurrentRegistration),
+                Grades = new List<GradeViewModel>()
             };
             
             return View(subjectGradesRecordViewModel);
@@ -94,17 +92,18 @@ namespace StudInfoSys.Controllers
         // POST: /Grade/Create
 
         [HttpPost]
-        public ActionResult Create(SubjectGradesRecord subjectgradesrecord)
+        public ActionResult Create(SubjectGradesRecordViewModel subjectGradesRecordViewModel)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.SubjectGradesRecordRepository.Insert(subjectgradesrecord);
+                var subjectGradesRecord = MapSubjectGradesRecordViewModelToSubjectGradesRecord(subjectGradesRecordViewModel);
+                _unitOfWork.SubjectGradesRecordRepository.Insert(subjectGradesRecord);
                 _unitOfWork.SubjectGradesRecordRepository.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { id = subjectGradesRecordViewModel.RegistrationId });
             }
 
-            ViewBag.SubjectId = new SelectList(_unitOfWork.SubjectRepository.GetAll().Distinct(), "Id", "SubjectCode", subjectgradesrecord.SubjectId);
-            return View(subjectgradesrecord);
+            ViewBag.SubjectId = new SelectList(_unitOfWork.SubjectRepository.GetAll().Distinct(), "Id", "SubjectCode", subjectGradesRecordViewModel.SubjectId);
+            return View(subjectGradesRecordViewModel);
         }
 
         //
@@ -165,18 +164,31 @@ namespace StudInfoSys.Controllers
 
         private SubjectGradesRecord MapSubjectGradesRecordViewModelToSubjectGradesRecord(SubjectGradesRecordViewModel subjectGradesRecordViewModel)
         {
-            return new SubjectGradesRecord
+            var subjectGradesRecord =  new SubjectGradesRecord
             {
                 Id = subjectGradesRecordViewModel.Id, 
                 Registration = _unitOfWork.RegistrationRepository.GetById(subjectGradesRecordViewModel.RegistrationId),
-                SubjectId = subjectGradesRecordViewModel.Id,
-                //Grades = subjectGradesRecordViewModel.Grades
+                SubjectId = subjectGradesRecordViewModel.SubjectId,
+                //Subject = _unitOfWork.SubjectRepository.GetById(subjectGradesRecordViewModel.SubjectId),
+                Grades = new List<Grade>()
             };
+
+            //foreach (var grade in subjectGradesRecordViewModel.Grades)
+            //{
+            //    subjectGradesRecord.Grades.Add(new Grade
+            //    {
+            //        PeriodId = grade.PeriodId,
+            //        GradeValue = grade.GradeValue,
+                    
+            //    });
+            //}
+
+            return subjectGradesRecord;
         }
 
         private SubjectGradesRecordViewModel MapSubjectGradesRecordToSubjectGradesRecordViewModel(SubjectGradesRecord subjectGradesRecord)
         {
-            return new SubjectGradesRecordViewModel()
+            var subjectGradesRecordViewModel = new SubjectGradesRecordViewModel()
             {
                 //Id = subjectGradesRecord.Id,
                 RegistrationId = subjectGradesRecord.Registration.Id,
@@ -185,7 +197,20 @@ namespace StudInfoSys.Controllers
                 //SubjectCode = subjectGradesRecord.Subject.SubjectCode,
                 //SubjectName = subjectGradesRecord.Subject.Name
                 //Grades = subjectGradesRecord.Grades
+                
             };
+
+            foreach (var grade in subjectGradesRecord.Grades)
+            {
+                subjectGradesRecordViewModel.Grades.Add(new GradeViewModel
+                {
+                    PeriodId = grade.PeriodId,
+                    PeriodName = grade.Period.Name,
+                    GradeValue = grade.GradeValue
+                });
+            }
+
+            return subjectGradesRecordViewModel;
         }
 
         private IEnumerable<SubjectGradesRecordViewModel> MapListOfSubjectGradesRecordToListOfSubjectGradesRecordViewModel(IEnumerable<SubjectGradesRecord> listOfSubjectGradesRecord)

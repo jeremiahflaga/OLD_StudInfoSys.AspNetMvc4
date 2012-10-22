@@ -1,37 +1,40 @@
-﻿@model StudInfoSys.Models.Grade
+﻿@model StudInfoSys.ViewModels.GradeViewModel
+@using StudInfoSys.Helpers
 
-@*<script src="~/Scripts/jquery-1.7.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-@using (Html.BeginForm()) {
-    @Html.ValidationSummary(true)
-
-    *@<fieldset>
-        <legend>Grade</legend>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PeriodId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.PeriodId)
-            @Html.ValidationMessageFor(model => model.PeriodId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.GradeValue)
+@using (Html.BeginCollectionItem("grades"))
+{
+    <div class="editor-label">
+            @Html.DisplayFor(model => model.PeriodName)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.GradeValue)
             @Html.ValidationMessageFor(model => model.GradeValue)
         </div>
 
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>
-@*}
+}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
+
+
+
+
+
+@*
+@model IEnumerable<StudInfoSys.ViewModels.GradeViewModel>
+
+@{
+    var modelArray = Model.ToArray();
+    for (int i = 0; i < modelArray.Count(); i++)
+    {
+        <div class="editor-label">
+            @Html.DisplayFor(model => modelArray[i].PeriodName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => modelArray[i].GradeValue)
+            @Html.ValidationMessageFor(model => modelArray[i].GradeValue)
+        </div>
+    }
+        
+}
+
+*@

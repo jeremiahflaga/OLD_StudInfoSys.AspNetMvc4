@@ -18,9 +18,9 @@ namespace StudInfoSys.ViewModels
         //[Display(Name = "Subject")]
         public int SubjectId { get; set; }
 
-        public List<Grade> Grades { get; set; }
+        public List<GradeViewModel> Grades { get; set; }
 
-        public Grade CurrentGrade { get; set; }
+        //public Grade CurrentGrade { get; set; }
 
         //private ICollection<Grade> _grades;
         //public ICollection<Grade> Grades

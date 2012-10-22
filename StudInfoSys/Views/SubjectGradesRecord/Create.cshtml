@@ -6,7 +6,9 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.RegistrationId)
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -27,19 +29,49 @@
 
         </div>
 
-        @foreach (var period in Model.PeriodsList)
-        {
-            var newGrade = new StudInfoSys.Models.Grade{
-                PeriodId = period.Id,
-                GradeValue = 93,
-            };
-            Html.Partial("_CreateGrades", newGrade);
-            Model.Grades.Add(newGrade);
+        @{
+            foreach (var period in Model.PeriodsList)
+            {
+                var newGrade = new StudInfoSys.ViewModels.GradeViewModel
+                {
+                    PeriodId = period.Id,
+                    PeriodName = period.Name,
+                    GradeValue = 93
+                };
+                @Html.Partial("_CreateGrades", newGrade); //NOTE: you have to use @
            
-            <div>asdf @period.Name</div> 
-            <input type="text" value="@newGrade.GradeValue" />
+                Model.Grades.Add(newGrade);
+           
+            }
+            //@Html.Partial("_CreateGrades", Model.Grades); //NOTE: you have to use @
         }
 
+
+@*
+        @{
+            var periodList = Model.PeriodsList;
+            for (int i = 0; i < periodList.Count(); i++)
+            {
+                var newGrade = new StudInfoSys.ViewModels.GradeViewModel
+                {
+                    PeriodId = periodList.ElementAt(i).Id,
+                    PeriodName = periodList.ElementAt(i).Name,
+                    GradeValue = 93
+                };
+
+                @Html.Partial("_CreateGrades", newGrade); //NOTE: you have to use @
+                Model.Grades.Add(@newGrade);
+            
+            <div class="editor-label">
+                @Html.DisplayFor(model => model.PeriodName)
+            </div>
+        
+            <div class="editor-field">
+                @Html.EditorFor(model => model.GradeValue)
+                @Html.ValidationMessageFor(model => model.GradeValue)
+            </div>
+            }
+        }*@
 
         <p>
             <input type="submit" value="Create" />

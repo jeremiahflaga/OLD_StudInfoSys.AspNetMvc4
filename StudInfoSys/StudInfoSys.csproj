@@ -180,6 +180,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
     <Compile Include="Helpers\StudInfoSysHelper.cs" />
     <Compile Include="Repository\DegreeRepository.cs" />
     <Compile Include="Repository\GradeRepository.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Repository\RepositoryBase.cs" />
     <Compile Include="Repository\StudentRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
+    <Compile Include="ViewModels\GradeViewModel.cs" />
     <Compile Include="ViewModels\SubjectGradesRecordViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
@@ -370,6 +372,7 @@
     <Content Include="Views\SubjectGradesRecord\Edit.cshtml" />
     <Content Include="Views\SubjectGradesRecord\Delete.cshtml" />
     <Content Include="Views\SubjectGradesRecord\_CreateGrades.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\Copy of _CreateGrades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
