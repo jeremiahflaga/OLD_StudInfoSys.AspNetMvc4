@@ -74,22 +74,30 @@ namespace StudInfoSys.Migrations
         {
             return new Registration[]
                        {
-                           //First Year
+                           //First Year College
                            new Registration
                                {
                                    DateOfRegistration = new DateTime(2012, 06, 01),
                                    SchoolYearFrom = 2012, SchoolYearTo = 2013,
                                    SemesterId = 1, DegreeId= 1, IsDeleted = false,
                                    //Degree = new Degree{Id = 2},
-                                   SubjectGradesRecords = CreateListOfSubjectGradesRecordsForFirstYear()
+                                   SubjectGradesRecords = CreateListOfSubjectGradesRecordsForFirstYearCollege()
                                },
-                           //Second Year
+                           //Second Year College
                            new Registration
                                {
                                    DateOfRegistration = new DateTime(2012, 11, 01),
                                    SchoolYearFrom = 2012, SchoolYearTo = 2013,
                                    SemesterId = 2, DegreeId= 1, IsDeleted = false, 
-                                   SubjectGradesRecords = CreateListOfSubjectGradesRecordsForSecondYear()
+                                   SubjectGradesRecords = CreateListOfSubjectGradesRecordsForSecondYearCollege()
+                               },
+                           //Fourth Year High School
+                           new Registration
+                               {
+                                   DateOfRegistration = new DateTime(2004, 06, 01),
+                                   SchoolYearFrom = 2004, SchoolYearTo = 2005,
+                                   SemesterId = 4, DegreeId= 7, IsDeleted = false, 
+                                   SubjectGradesRecords = CreateListOfSubjectGradesRecordsForFourthYearHighSchool()
                                }
                        };
 
@@ -122,7 +130,7 @@ namespace StudInfoSys.Migrations
             //           };
         }
 
-        private SubjectGradesRecord[] CreateListOfSubjectGradesRecordsForFirstYear()
+        private SubjectGradesRecord[] CreateListOfSubjectGradesRecordsForFirstYearCollege()
         {
             return new SubjectGradesRecord[]
                        {
@@ -130,25 +138,25 @@ namespace StudInfoSys.Migrations
                                {
                                    SubjectId = 1, Grades = new Grade[]
                                                                {
-                                                                   new Grade{ PeriodId = 1, GradeValue = 89},
-                                                                   new Grade{ PeriodId = 2, GradeValue = 90},
-                                                                   new Grade{ PeriodId = 3, GradeValue = 91}
+                                                                   new Grade{ PeriodId = 1, GradeValue = 84},
+                                                                   new Grade{ PeriodId = 2, GradeValue = 85},
+                                                                   new Grade{ PeriodId = 3, GradeValue = 86}
                                                                }
                                },
                             new SubjectGradesRecord
                                {
                                    SubjectId = 2, Grades = new Grade[]
                                                                {
-                                                                   new Grade{ PeriodId = 1, GradeValue = 89},
-                                                                   new Grade{ PeriodId = 2, GradeValue = 90},
-                                                                   new Grade{ PeriodId = 3, GradeValue = 91}
+                                                                   new Grade{ PeriodId = 1, GradeValue = 84},
+                                                                   new Grade{ PeriodId = 2, GradeValue = 85},
+                                                                   new Grade{ PeriodId = 3, GradeValue = 86}
                                                                }
                                }
 
                        };
         }
 
-        private SubjectGradesRecord[] CreateListOfSubjectGradesRecordsForSecondYear()
+        private SubjectGradesRecord[] CreateListOfSubjectGradesRecordsForSecondYearCollege()
         {
             return new SubjectGradesRecord[]
                        {
@@ -156,18 +164,46 @@ namespace StudInfoSys.Migrations
                                {
                                    SubjectId = 3, Grades = new Grade[]
                                                                {
-                                                                   new Grade{ PeriodId = 1, GradeValue = 89},
-                                                                   new Grade{ PeriodId = 2, GradeValue = 90},
-                                                                   new Grade{ PeriodId = 3, GradeValue = 91}
+                                                                   new Grade{ PeriodId = 1, GradeValue = 84},
+                                                                   new Grade{ PeriodId = 2, GradeValue = 85},
+                                                                   new Grade{ PeriodId = 3, GradeValue = 86}
                                                                }
                                },
                             new SubjectGradesRecord
                                {
                                    SubjectId = 4, Grades = new Grade[]
                                                                {
-                                                                   new Grade{ PeriodId = 1, GradeValue = 89},
-                                                                   new Grade{ PeriodId = 2, GradeValue = 90},
-                                                                   new Grade{ PeriodId = 3, GradeValue = 91}
+                                                                   new Grade{ PeriodId = 1, GradeValue = 84},
+                                                                   new Grade{ PeriodId = 2, GradeValue = 85},
+                                                                   new Grade{ PeriodId = 3, GradeValue = 86}
+                                                               }
+                               }
+
+                       };
+        }
+
+        private SubjectGradesRecord[] CreateListOfSubjectGradesRecordsForFourthYearHighSchool()
+        {
+            return new SubjectGradesRecord[]
+                       {
+                           new SubjectGradesRecord
+                               {
+                                   SubjectId = 5, Grades = new Grade[]
+                                                               {
+                                                                   new Grade{ PeriodId = 7, GradeValue = 84},
+                                                                   new Grade{ PeriodId = 8, GradeValue = 85},
+                                                                   new Grade{ PeriodId = 9, GradeValue = 86},
+                                                                   new Grade{ PeriodId = 10, GradeValue = 87}
+                                                               }
+                               },
+                            new SubjectGradesRecord
+                               {
+                                   SubjectId = 6, Grades = new Grade[]
+                                                               {
+                                                                   new Grade{ PeriodId = 7, GradeValue = 84},
+                                                                   new Grade{ PeriodId = 8, GradeValue = 85},
+                                                                   new Grade{ PeriodId = 9, GradeValue = 86},
+                                                                   new Grade{ PeriodId = 10, GradeValue = 87}
                                                                }
                                }
 
@@ -180,7 +216,23 @@ namespace StudInfoSys.Migrations
                        {
                            new Degree{ Acronym = "BSCS", LevelId = 4, Title = "Bachelor of Science in Computer Science"},
                            new Degree{ Acronym = "BSME", LevelId = 4, Title = "Bachelor of Science in Mechanical Engineering"},
-                           new Degree{ Acronym = "BS-GD", LevelId = 4, Title = "Bachelor of Science in Graphics Design"}
+                           new Degree{ Acronym = "BS-GD", LevelId = 4, Title = "Bachelor of Science in Graphics Design"},
+
+                           new Degree{ Acronym = "HS-1", LevelId = 3, Title = "1st Year High School"},
+                           new Degree{ Acronym = "HS-2", LevelId = 3, Title = "2nd Year High School"},
+                           new Degree{ Acronym = "HS-3", LevelId = 3, Title = "3rd Year High School"},
+                           new Degree{ Acronym = "HS-4", LevelId = 3, Title = "4th Year High School"},
+
+                           new Degree{ Acronym = "Elem-1", LevelId = 2, Title = "Grade 1"},
+                           new Degree{ Acronym = "Elem-2", LevelId = 2, Title = "Grade 2"},
+                           new Degree{ Acronym = "Elem-3", LevelId = 2, Title = "Grade 3"},
+                           new Degree{ Acronym = "Elem-4", LevelId = 2, Title = "Grade 4"},
+                           new Degree{ Acronym = "Elem-5", LevelId = 2, Title = "Grade 5"},
+                           new Degree{ Acronym = "Elem-6", LevelId = 2, Title = "Grade 6"},
+
+                           new Degree{ Acronym = "Prep-Nursery", LevelId = 1, Title = "Nursery"},
+                           new Degree{ Acronym = "Prep-K1", LevelId = 1, Title = "Kinder 1"},
+                           new Degree{ Acronym = "Prep-K2", LevelId = 1, Title = "Kinder 2"}
                        };
         }
 
@@ -244,16 +296,31 @@ namespace StudInfoSys.Migrations
                 new Subject{ Name = "Introduction to Computer Science", LevelId = 4, NumberOfUnits = 3, SubjectCode = "CS101"},
                 new Subject{ Name = "Data Structures", LevelId = 4, NumberOfUnits = 3, SubjectCode = "CS102"},
                 new Subject{ Name = "Introduction to Algorithms", LevelId = 4, NumberOfUnits = 3, SubjectCode = "CS201"},
-                new Subject{ Name = "Web Develoopment", LevelId = 4, NumberOfUnits = 3, SubjectCode = "CS202"},
+                new Subject{ Name = "Web Development", LevelId = 4, NumberOfUnits = 3, SubjectCode = "CS202"},
 
-                new Subject{ Name = "Mathematics", LevelId = 3, NumberOfUnits = 1, SubjectCode = "Mathematics"},
-                new Subject{ Name = "English", LevelId = 3, NumberOfUnits = 1, SubjectCode = "English"},
-                new Subject{ Name = "Biology", LevelId = 3, NumberOfUnits = 1, SubjectCode = "Biology"},
-                new Subject{ Name = "Chemistry", LevelId = 3, NumberOfUnits = 1, SubjectCode = "Chemistry"},
-                new Subject{ Name = "Physics", LevelId = 3, NumberOfUnits = 1, SubjectCode = "Physics"},
-                new Subject{ Name = "Filipino", LevelId = 3, NumberOfUnits = 1, SubjectCode = "Filipino"},
-                new Subject{ Name = "Araling Panlipunan", LevelId = 3, NumberOfUnits = 1, SubjectCode = "Araling Panlipunan"},
-                new Subject{ Name = "MAPEH", LevelId = 3, NumberOfUnits = 1, SubjectCode = "MAPEH"}
+                new Subject{ Name = "Mathematics", LevelId = 3, NumberOfUnits = 1, SubjectCode = "HS-Math"},
+                new Subject{ Name = "English", LevelId = 3, NumberOfUnits = 1, SubjectCode = "HS-English"},
+                new Subject{ Name = "Biology", LevelId = 3, NumberOfUnits = 1, SubjectCode = "HS-Biology"},
+                new Subject{ Name = "Chemistry", LevelId = 3, NumberOfUnits = 1, SubjectCode = "HS-Chemistry"},
+                new Subject{ Name = "Physics", LevelId = 3, NumberOfUnits = 1, SubjectCode = "HS-Physics"},
+                new Subject{ Name = "Filipino", LevelId = 3, NumberOfUnits = 1, SubjectCode = "HS-Filipino"},
+                new Subject{ Name = "Araling Panlipunan", LevelId = 3, NumberOfUnits = 1, SubjectCode = "HS-AP"},
+                new Subject{ Name = "MAPEH", LevelId = 3, NumberOfUnits = 1, SubjectCode = "HS-MAPEH"},
+
+                new Subject{ Name = "Mathematics", LevelId = 2, NumberOfUnits = 1, SubjectCode = "Elem-Math"},
+                new Subject{ Name = "English", LevelId = 2, NumberOfUnits = 1, SubjectCode = "Elem-English"},
+                new Subject{ Name = "General Science", LevelId = 2, NumberOfUnits = 1, SubjectCode = "Elem-Science"},
+                new Subject{ Name = "Physical Education", LevelId = 2, NumberOfUnits = 1, SubjectCode = "Elem-PE"},
+                new Subject{ Name = "Filipino", LevelId = 2, NumberOfUnits = 1, SubjectCode = "Elem-Filipino"},
+                new Subject{ Name = "Social Studies", LevelId = 2, NumberOfUnits = 1, SubjectCode = "Elem-SS"},
+                new Subject{ Name = "Home Economics", LevelId = 2, NumberOfUnits = 1, SubjectCode = "Elem-HE"},
+
+                new Subject{ Name = "Mathematics", LevelId = 1, NumberOfUnits = 1, SubjectCode = "Prep-Math"},
+                new Subject{ Name = "English", LevelId = 1, NumberOfUnits = 1, SubjectCode = "Prep-English"},
+                new Subject{ Name = "General Science", LevelId = 1, NumberOfUnits = 1, SubjectCode = "Prep-Science"},
+                new Subject{ Name = "Physical Education", LevelId = 1, NumberOfUnits = 1, SubjectCode = "Prep-PE"},
+                new Subject{ Name = "Filipino", LevelId = 1, NumberOfUnits = 1, SubjectCode = "Prep-Filipino"},
+                new Subject{ Name = "Social Studies", LevelId = 1, NumberOfUnits = 1, SubjectCode = "Prep-SS"}
             };
         }
     }

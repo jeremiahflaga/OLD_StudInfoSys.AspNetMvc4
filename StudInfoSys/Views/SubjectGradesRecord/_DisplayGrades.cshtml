@@ -1,0 +1,14 @@
+﻿@model StudInfoSys.Models.Grade
+@using StudInfoSys.Helpers
+
+@using (Html.BeginCollectionItem("gradeviewmodels"))
+{
+    @Html.HiddenFor(model => model.PeriodId)
+        
+    <div class="display-label">
+         @Html.DisplayFor(model => model.Period.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.GradeValue)
+    </div>
+}

@@ -13,7 +13,6 @@ namespace StudInfoSys.Controllers
 {
     public class SubjectGradesRecordController : Controller
     {
-        //private StudInfoSysContext db = new StudInfoSysContext();
         IUnitOfWork _unitOfWork;
 
         public SubjectGradesRecordController(IUnitOfWork unitOfWork)
@@ -70,7 +69,7 @@ namespace StudInfoSys.Controllers
             var subjectGradesRecordViewModel = new SubjectGradesRecordViewModel
             {
                 RegistrationId = id,
-                SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll(), "Id", "Name"),
+                SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll().Where(s => s.LevelId == levelIdOfCurrentRegistration) , "Id", "Name"),
                 PeriodsList = _unitOfWork.PeriodRepository.GetAll().Where(p => p.LevelId == levelIdOfCurrentRegistration),
                 GradeViewModels = new List<GradeViewModel>()
             };

@@ -17,7 +17,7 @@ namespace StudInfoSys.ViewModels
         [Required]
         public int PeriodId { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:c}", NullDisplayText = "No Grade")]
+        [DisplayFormat(DataFormatString = "{0:f}", NullDisplayText = "No Grade")]
         [Range(0, 100)]
         [Display(Name = "Grade")]
         public virtual decimal? GradeValue { get; set; }

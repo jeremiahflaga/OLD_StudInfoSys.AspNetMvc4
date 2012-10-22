@@ -371,8 +371,9 @@
     <Content Include="Views\SubjectGradesRecord\Create.cshtml" />
     <Content Include="Views\SubjectGradesRecord\Edit.cshtml" />
     <Content Include="Views\SubjectGradesRecord\Delete.cshtml" />
-    <Content Include="Views\SubjectGradesRecord\_CreateGrades.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\_CreateGradeViewModels.cshtml" />
     <Content Include="Views\SubjectGradesRecord\Copy of _CreateGrades.cshtml" />
+    <Content Include="Views\SubjectGradesRecord\_DisplayGrades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

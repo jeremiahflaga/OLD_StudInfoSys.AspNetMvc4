@@ -35,6 +35,7 @@ namespace StudInfoSys.ViewModels
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Date of Registration")]
+        [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:D}", ApplyFormatInEditMode = true)]
         public DateTime DateOfRegistration { get; set; }
 
         //[Required]

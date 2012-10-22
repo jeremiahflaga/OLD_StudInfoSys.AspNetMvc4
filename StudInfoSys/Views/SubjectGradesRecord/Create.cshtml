@@ -18,15 +18,11 @@
             @Html.LabelFor(model => model.SubjectId, "Subject")
         </div>
         <div class="editor-field">
-            @*@Html.DropDownList("SubjectId", String.Empty)*@
             @Html.DropDownListFor(model => model.SubjectId, Model.SubjectsList, "Select...")
             @Html.ValidationMessageFor(model => model.SubjectId)
         </div>
 
         <div id="grades-list" class="editor-label">
-            TODO: List of Grades for the current registration
-
-
         </div>
 
         @{
@@ -36,43 +32,15 @@
                 {
                     PeriodId = period.Id,
                     PeriodName = period.Name,
-                    GradeValue = 93
+                    GradeValue = null
                 };
-                @Html.Partial("_CreateGrades", newGrade); //NOTE: you have to use @
+                @Html.Partial("_CreateGradeViewModels", newGrade); //NOTE: you have to use @
            
                 Model.GradeViewModels.Add(newGrade);
            
             }
-            //@Html.Partial("_CreateGrades", Model.Grades); //NOTE: you have to use @
         }
-
-
-@*
-        @{
-            var periodList = Model.PeriodsList;
-            for (int i = 0; i < periodList.Count(); i++)
-            {
-                var newGrade = new StudInfoSys.ViewModels.GradeViewModel
-                {
-                    PeriodId = periodList.ElementAt(i).Id,
-                    PeriodName = periodList.ElementAt(i).Name,
-                    GradeValue = 93
-                };
-
-                @Html.Partial("_CreateGrades", newGrade); //NOTE: you have to use @
-                Model.Grades.Add(@newGrade);
-            
-            <div class="editor-label">
-                @Html.DisplayFor(model => model.PeriodName)
-            </div>
         
-            <div class="editor-field">
-                @Html.EditorFor(model => model.GradeValue)
-                @Html.ValidationMessageFor(model => model.GradeValue)
-            </div>
-            }
-        }*@
-
         <p>
             <input type="submit" value="Create" />
         </p>

@@ -17,15 +17,10 @@ namespace StudInfoSys.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        //private readonly IRegistrationRepository _registrationRepository;
-
         public RegistrationController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
-
-        //
-        // GET: /Student/
 
         /// <summary>
         /// Indexes the registration records of the student with the specified student ID.
@@ -48,9 +43,6 @@ namespace StudInfoSys.Controllers
             return View("Index", registrations);
         }
 
-        //
-        // GET: /Registration/Details/5
-
         public ActionResult Details(int id = 0)
         {
             Registration registration = _unitOfWork.RegistrationRepository.GetById(id);
@@ -60,9 +52,6 @@ namespace StudInfoSys.Controllers
             }
             return View(registration);
         }
-
-        //
-        // GET: /Registration/Create
 
         /// <summary>
         /// Creates the registration for the student with the specified student ID.
@@ -78,7 +67,8 @@ namespace StudInfoSys.Controllers
                                                 SemestersList =
                                                     new SelectList(_unitOfWork.SemesterRepository.GetAll(), "Id", "Name"),
                                                 DegreesList =
-                                                    new SelectList(_unitOfWork.DegreeRepository.GetAll(), "Id", "Title")
+                                                    new SelectList(_unitOfWork.DegreeRepository.GetAll(), "Id", "Title"),
+                                                DateOfRegistration = DateTime.Now
                                             };
             
             return View(registrationViewModel);
