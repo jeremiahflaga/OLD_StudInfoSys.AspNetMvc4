@@ -19,9 +19,9 @@ namespace StudInfoSys.Models
         [HiddenInput]
         public virtual int Id { get; set; }
 
-        [Required]
-        public virtual Subject Subject { get; set; }
         
+        public virtual Subject Subject { get; set; }
+        [Required]
         public virtual int SubjectId { get; set; }
 
         public virtual ICollection<Grade> Grades { get; set; }
