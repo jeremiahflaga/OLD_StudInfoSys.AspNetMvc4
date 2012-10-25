@@ -121,6 +121,14 @@ namespace StudInfoSys.Controllers
             {
                 return HttpNotFound();
             }
+
+            // If studnt has at least one registration record, deletion is prohibited
+            if (student.Registrations.Any(r => r.IsDeleted == false))
+            {
+                throw new HttpException("You are not allowed to delete this student because he has registrations records");
+                ViewBag.ErrorMessage = "You are not allowed to delete this student because he has registrations records";
+                return RedirectToAction("Delete", new {id=id});
+            }
             _studentRepository.Delete(student);
             _studentRepository.Save();
             return RedirectToAction("Index");
