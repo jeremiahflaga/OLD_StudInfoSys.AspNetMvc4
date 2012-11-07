@@ -181,7 +181,13 @@
     <Compile Include="Controllers\RegistrationController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Helpers\HtmlPrefixScopeExtensions.cs" />
+    <Compile Include="Helpers\Log.cs" />
     <Compile Include="Helpers\StudInfoSysHelper.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Repository\DegreeRepository.cs" />
     <Compile Include="Repository\GradeRepository.cs" />
     <Compile Include="Repository\IDegreeRepository.cs" />
@@ -298,6 +304,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Images\StudInfoSys.png" />
     <Content Include="Scripts\jquery-1.8.2.js" />
