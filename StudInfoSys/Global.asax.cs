@@ -27,7 +27,7 @@ namespace StudInfoSys
             AuthConfig.RegisterAuth();
 
             // NOTE: This will reset the database based on the Seed method in Configuration class
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<StudInfoSysContext, Configuration>());
+            //Database.SetInitializer(new MigrateDatabaseToLatestVersion<StudInfoSysContext, Configuration>());
             //Database.SetInitializer( new DropCreateDatabaseIfModelChanges<StudInfoSysContext>());
 
         }

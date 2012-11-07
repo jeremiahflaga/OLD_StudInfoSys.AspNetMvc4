@@ -12,7 +12,7 @@
     UpdateTargetId = "students-list" 
 }))
 {
-    <input type="text" name="lastName" placeholder="Enter Lastname" title="Lastname" />
+    <input id="lastname" type="text" name="lastName" placeholder="Enter Lastname" title="Try typing 'Flaga'" />
     <button type="submit" value="Search">Search</button>
 }
 
@@ -22,4 +22,13 @@
 
 @section Scripts {
     @Scripts.Render("~/Scripts/StudInforSysScript.js")
+
+     @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    
+    <script type="text/javascript">
+        $(function(){
+            $("#lastname").tooltip();
+        });
+    </script>
 }
