@@ -16,18 +16,15 @@
         @Html.HiddenFor(model => model.StudentId)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.SchoolYearFrom)
+            @Html.LabelFor(model => model.SchoolYear)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.SchoolYearFrom)
+            @Html.TextBoxFor(model => model.SchoolYearFrom, new { style = "width: 45px;" }) - @Html.TextBoxFor(model => model.SchoolYearTo, new { style = "width: 45px;" })            
+        </div>
+        <div class="editor-field">
             @Html.ValidationMessageFor(model => model.SchoolYearFrom)
         </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SchoolYearTo)
-        </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.SchoolYearTo)
             @Html.ValidationMessageFor(model => model.SchoolYearTo)
         </div>
 
@@ -35,7 +32,6 @@
             @Html.LabelFor(model => model.SemesterId, "Semester")
         </div>
         <div class="editor-field">
-            @*@Html.DropDownList("SemesterId", String.Empty)*@
             @Html.DropDownListFor(model => model.SemesterId, Model.SemestersList, "Select...")
             @Html.ValidationMessageFor(model => model.SemesterId)
         </div>
@@ -44,8 +40,7 @@
             @Html.LabelFor(model => model.DegreeId, "Degree")
         </div>
         <div class="editor-field">
-            @*@Html.DropDownList("DegreeId", String.Empty)*@
-            @Html.DropDownListFor(model => model.DegreeId, Model.DegreesList, "Select...")
+            @Html.DropDownListFor(model => model.DegreeId, Model.DegreesList, "Select...", new { style = "width: 500px;" })
             @Html.ValidationMessageFor(model => model.DegreeId)
         </div>
 
@@ -69,4 +64,27 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    
+    <script type="text/javascript">
+        $(function(){
+            $("#DateOfRegistration").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1900:2100"
+            });
+            
+
+            $("#SchoolYearFrom").blur(function () {
+                var yearFrom = $(this).val();
+                $("#SchoolYearTo").val( parseInt(yearFrom) + 1 );
+            });
+
+            $("#SchoolYearTo").blur(function () {
+                var yearFrom = $(this).val();
+                $("#SchoolYearFrom").val(parseInt(yearFrom) - 1);
+            });
+        });
+    </script>
 }

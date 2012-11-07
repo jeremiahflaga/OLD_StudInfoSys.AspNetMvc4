@@ -9,19 +9,12 @@
 <h3>Are you sure you want to delete this?</h3>
 <fieldset>
     <legend>Registration</legend>
-
+    
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.SchoolYearFrom)
+         @Html.DisplayNameFor(model => model.SchoolYear)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.SchoolYearFrom)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SchoolYearTo)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SchoolYearTo)
+        @Html.DisplayFor(model => model.SchoolYear)
     </div>
 
     <div class="display-label">
@@ -45,12 +38,6 @@
         @Html.DisplayFor(model => model.DateOfRegistration)
     </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.SchoolYear)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.SchoolYear)
-    </div>
 </fieldset>
 @using (Html.BeginForm()) {
     <p>

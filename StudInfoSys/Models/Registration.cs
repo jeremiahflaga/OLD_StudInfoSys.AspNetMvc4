@@ -22,7 +22,6 @@ namespace StudInfoSys.Models
         [Range(1800, 9999)]
         public virtual int SchoolYearTo { get; set; }
 
-        
         public virtual Semester Semester { get; set; }
         [Required]
         public virtual int SemesterId { get; set; }

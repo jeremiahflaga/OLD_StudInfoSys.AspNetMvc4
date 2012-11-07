@@ -10,6 +10,7 @@ namespace StudInfoSys.Models
 
         [Required]
         [StringLength(50, MinimumLength = 1)]
+        [Display(Name = "Semester")]
         public virtual string Name { get; set; }
     }
 }

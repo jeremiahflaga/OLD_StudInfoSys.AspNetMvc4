@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace StudInfoSys.ViewModels
 {
-    public class RegistrationViewModel
+    public class RegistrationViewModel : IValidatableObject
     {
         public virtual int Id { get; set; }
 
@@ -35,7 +35,7 @@ namespace StudInfoSys.ViewModels
         [Required]
         [DataType(DataType.DateTime)]
         [Display(Name = "Date of Registration")]
-        [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:D}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(NullDisplayText = "", DataFormatString = "{0:MMMM dd,yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateOfRegistration { get; set; }
 
         //[Required]
@@ -53,5 +53,16 @@ namespace StudInfoSys.ViewModels
 
         public IEnumerable<SelectListItem> SemestersList { get; set; }
         public IEnumerable<SelectListItem> DegreesList { get; set; }
+
+
+        
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var schoolYearFields = new string[] { "SchoolYearFrom", "SchoolYearTo" };
+            if (String.IsNullOrEmpty(SchoolYearFrom.ToString()) || String.IsNullOrEmpty(SchoolYearTo.ToString()))
+            {
+                yield return new ValidationResult("School Year is required");
+            }
+        }
     }
 }

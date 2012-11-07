@@ -104,7 +104,6 @@ namespace StudInfoSys.Controllers
 
         public ActionResult Delete(int id = 0)
         {
-            ViewBag.ErrorMessage = "";
             Student student = _studentRepository.GetById(id);
             if (student == null)
             {
@@ -119,7 +118,6 @@ namespace StudInfoSys.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            ViewBag.ErrorMessage = "";
             Student student = _studentRepository.GetById(id);
             if (student == null)
             {
@@ -130,8 +128,6 @@ namespace StudInfoSys.Controllers
             if (student.Registrations.Any(r => r.IsDeleted == false))
             {
                 throw new HttpException("You are not allowed to delete this student because he has registration records");
-                //ViewBag.ErrorMessage = "You are not allowed to delete this student because he has registration records";
-                //return RedirectToAction("Delete", new {id=id});
             }
             _studentRepository.Delete(student);
             _studentRepository.Save();
