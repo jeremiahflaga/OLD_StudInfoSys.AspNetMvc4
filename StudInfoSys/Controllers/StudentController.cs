@@ -24,22 +24,10 @@ namespace StudInfoSys.Controllers
             _studentRepository = studentRepository;
         }
 
-        //
-        // GET: /Student/
-
         public ViewResult Index(string searchString = "", string sortOrder = "", int? page = null)
         {
             ViewBag.CurrentSortOrder = sortOrder;
             ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "Name desc" : "";
-
-            //if (Request.HttpMethod == "GET") // if page button is clicked ->
-            //{
-            //    searchString = currentFilter;
-            //}
-            //else // if search (POST)
-            //{
-            //    page = 1;
-            //}
             ViewBag.CurrentSearchString = searchString;
 
             var students = _studentRepository.GetAll();
@@ -71,11 +59,7 @@ namespace StudInfoSys.Controllers
         {
             return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower().Contains(searchString.ToLower()), false).OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToPagedList(1, 3));
         }
-
-
-        //
-        // GET: /Student/Details/5
-
+        
         public ActionResult Details(int id = 0)
         {
             Student student = _studentRepository.GetById(id);
@@ -86,16 +70,10 @@ namespace StudInfoSys.Controllers
             return View(student);
         }
 
-        //
-        // GET: /Student/Create
-
         public ActionResult Create()
         {
             return View(new StudentViewModel());
         }
-
-        //
-        // POST: /Student/Create
 
         [HttpPost]
         public ActionResult Create(StudentViewModel studentViewModel)
@@ -111,9 +89,6 @@ namespace StudInfoSys.Controllers
             return View(studentViewModel);
         }
 
-        //
-        // GET: /Student/Edit/5
-
         public ActionResult Edit(int id = 0)
         {
             Student student = _studentRepository.GetById(id);
@@ -124,9 +99,6 @@ namespace StudInfoSys.Controllers
             var studViewModel = MapStudentToStudentViewModel(student);
             return View(studViewModel);
         }
-
-        //
-        // POST: /Student/Edit/5
 
         [HttpPost]
         public ActionResult Edit(StudentViewModel studentViewModel)
@@ -141,9 +113,6 @@ namespace StudInfoSys.Controllers
             return View(studentViewModel);
         }
 
-        //
-        // GET: /Student/Delete/5
-
         public ActionResult Delete(int id = 0)
         {
             Student student = _studentRepository.GetById(id);
@@ -153,9 +122,6 @@ namespace StudInfoSys.Controllers
             }
             return View(student);
         }
-
-        //
-        // POST: /Student/Delete/5
 
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)

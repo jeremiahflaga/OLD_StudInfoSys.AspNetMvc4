@@ -18,7 +18,6 @@
 {
     
     @Html.TextBox("searchString", ViewBag.CurrentSearchString as string, new {placeholder="Enter Lastname", autofocus="autofocus", title="Try typing \'Flaga\'"});
-    
     //<input id="searchString" type="text" name="searchString" placeholder="Enter Lastname" autofocus="autofocus" title="Try typing 'Flaga'" />
     <button type="submit" value="Search">Search</button>
 }
@@ -65,14 +64,12 @@
         $(function () {
             
             // Display "Start"
-            if ($('tr:contains(Jboy)')) {
-                $('table').before('<span id="start" style="color: red; font-size: 20px;">Start testing this app with <em><strong>\"Flaga, Jboy\"</strong><em></span>');
-                $('tr:contains(Jboy)').css({ color: 'red' });
-            }
+            $('table').before('<span id="start" style="color: red; font-size: 20px;">Start testing this app with <em><strong>\"Flaga, Jboy\"</strong><em></span>');
+            $('tr:contains(Jboy)').css({ color: 'red' });
 
             $('th a:contains(Name)').append('<span style="color: green; font-size: 15px; width: 20px;"> (Click to sort)</span>');
             
-            $("#lastname").tooltip();
+            $("#searchString").tooltip();
         });
 
 
