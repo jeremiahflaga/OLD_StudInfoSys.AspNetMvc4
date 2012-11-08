@@ -7,7 +7,7 @@
     <tr>
         <th >
             @*@Html.DisplayNameFor(model => model.FullName)*@
-            @Html.ActionLink("Name", "Index", new { sortOrder=ViewBag.NameSortParam }) 
+            @Html.ActionLink("Name", "Index", new { sortOrder=ViewBag.NameSortParam, searchString=ViewBag.CurrentSearchString }) 
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateOfBirth)
