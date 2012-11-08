@@ -6,7 +6,8 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FullName)
+            @*@Html.DisplayNameFor(model => model.FullName)*@
+            @Html.ActionLink("Name", "Index", new { sortOrder=ViewBag.NameSortParm }, new { style = "float: left;"}) 
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateOfBirth)

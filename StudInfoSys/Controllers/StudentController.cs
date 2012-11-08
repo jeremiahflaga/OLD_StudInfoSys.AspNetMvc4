@@ -26,9 +26,22 @@ namespace StudInfoSys.Controllers
         //
         // GET: /Student/
 
-        public ViewResult Index()
+        public ViewResult Index(string sortOrder = "")
         {
-            return View(_studentRepository.GetAll().OrderBy(s=> s.LastName).ThenBy(s2=>s2.FirstName).ToList());
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name desc" : "";
+            var students = _studentRepository.GetAll();
+
+            switch (sortOrder)
+            {
+                case "Name desc":
+                    students = students.OrderByDescending(s=> s.LastName).ThenByDescending(s2=>s2.FirstName);
+                    break;
+                default:
+                    students = students.OrderBy(s=> s.LastName).ThenBy(s2=>s2.FirstName);
+                    break;
+            }
+
+            return View(students.ToList());
         }
 
         //
