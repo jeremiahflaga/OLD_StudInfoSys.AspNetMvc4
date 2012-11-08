@@ -5,14 +5,14 @@
 </p>
 <table>
     <tr>
-        <th>
+        <th >
             @*@Html.DisplayNameFor(model => model.FullName)*@
-            @Html.ActionLink("Name", "Index", new { sortOrder=ViewBag.NameSortParm }, new { style = "float: left;"}) 
+            @Html.ActionLink("Name", "Index", new { sortOrder=ViewBag.NameSortParam }) 
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DateOfBirth)
         </th>
-        <th>
+        <th >
             @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
@@ -25,16 +25,16 @@
 @foreach (var item in Model) {
     <tr>
        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
+            <span class="fullname">@Html.DisplayFor(modelItem => item.FullName)</span>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateOfBirth)
+            <span class="date-of-birth">@Html.DisplayFor(modelItem => item.DateOfBirth)</span>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Address)
+            <span class="address">@Html.DisplayFor(modelItem => item.Address)</span>
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            <span class="email">@Html.DisplayFor(modelItem => item.Email)</span>
         </td>
         
         <td>

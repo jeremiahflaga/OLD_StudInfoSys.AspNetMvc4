@@ -10,6 +10,7 @@ using StudInfoSys.Repository;
 using StudInfoSys.ViewModels;
 using System.Text;
 using StudInfoSys.Helpers;
+using PagedList;
 
 namespace StudInfoSys.Controllers
 {
@@ -26,9 +27,10 @@ namespace StudInfoSys.Controllers
         //
         // GET: /Student/
 
-        public ViewResult Index(string sortOrder = "")
+        public ViewResult Index(string sortOrder = "", int? page = null)
         {
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "Name desc" : "";
+            ViewBag.CurrentSortOrder = sortOrder;
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "Name desc" : "";
             var students = _studentRepository.GetAll();
 
             switch (sortOrder)
@@ -41,8 +43,19 @@ namespace StudInfoSys.Controllers
                     break;
             }
 
-            return View(students.ToList());
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(students.ToPagedList(pageNumber, pageSize));
+
+            //return View(students.ToList());
         }
+
+
+        public ViewResult SearchByLastName(string lastName)
+        {
+            return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower().Contains(lastName.ToLower()), false).OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToPagedList(1, 3));
+        }
+
 
         //
         // GET: /Student/Details/5
@@ -145,11 +158,6 @@ namespace StudInfoSys.Controllers
             _studentRepository.Delete(student);
             _studentRepository.Save();
             return RedirectToAction("Index");
-        }
-
-        public ViewResult SearchByLastName(string lastName)
-        {
-            return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower() == lastName.ToLower(), false).OrderBy(s => s.LastName).ThenBy(s => s.FirstName));
         }
 
         #region Private methods

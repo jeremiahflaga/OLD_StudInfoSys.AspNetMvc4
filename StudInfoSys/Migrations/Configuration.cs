@@ -65,6 +65,8 @@ namespace StudInfoSys.Migrations
                             new Student { FirstName = "Jonathan", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },                            
                             new Student { FirstName = "Yves Donald", LastName = "Maquilan", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },
                             new Student { FirstName = "Donald", LastName = "Magallena", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },
+                            new Student { FirstName = "Averyveryveryverylongfirstname", LastName = "Averyveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },
+                            new Student { FirstName = "Zeryveryveryverylongfirstname", LastName = "Zeryveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" }
                            
                         };
         }

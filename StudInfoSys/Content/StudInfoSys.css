@@ -43,3 +43,41 @@
 /*select {
     font-size: 100px;
 }*/
+
+th a:link {
+    text-decoration: underline;
+}
+
+
+/* Student list/table*/
+td .fullname {
+    width: 150px;
+    display: block;
+    overflow: hidden;
+}
+td .date-of-birth {
+    width: 120px;
+    display: block;
+    overflow: hidden;
+}
+
+td .address {
+    width: 250px;
+    height: 80px;
+    display: block;
+    overflow: hidden;
+}
+
+td .email {
+    width: 150px;
+    display: block;
+    overflow: hidden;
+}
+
+td .fullname:hover,
+td .date-of-birth:hover,
+td .address:hover,
+td .email:hover
+{
+    overflow: auto;
+}
