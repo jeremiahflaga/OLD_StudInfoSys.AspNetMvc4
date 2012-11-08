@@ -51,10 +51,28 @@ th a:link {
 
 /* Student list/table*/
 
+/*#students-list td {
+    display: table;
+}
+    #students-list td * {
+        display: table-cell;
+    }*/
+
+#students-list thead {
+    /*border-bottom: double 1px black;
+    border-top: double 1px black;*/
+    background-color: #CCCCCC;
+}
+
+#students-list tbody tr {
+    height: 100px;
+}
+
 td .fullname {
-    width: 150px;
+    width: 150px;    
     display: block;
     overflow: hidden;
+    font-weight: bold;
 }
 td .date-of-birth {
     width: 120px;
@@ -64,11 +82,11 @@ td .date-of-birth {
 
 td .address {
     width: 250px;
-    height: 80px;
     display: block;
     overflow: hidden;
     vertical-align: middle;
 }
+
 
 td .email {
     width: 150px;
