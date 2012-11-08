@@ -15,6 +15,7 @@ namespace StudInfoSys.App_Start
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "StudInfoSys.Controllers" }
             );
+
         }
     }
 }

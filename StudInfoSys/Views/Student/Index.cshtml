@@ -6,18 +6,56 @@
 
 <h2>Index</h2>
 
-@using (Ajax.BeginForm("SearchByLastName", new AjaxOptions{
+@*using (Ajax.BeginForm("SearchByLastName", new AjaxOptions
+{
     HttpMethod = "GET",
     InsertionMode = InsertionMode.Replace,
     UpdateTargetId = "students-list" 
-}))
+}))*@
+
+
+@using(Html.BeginForm("Index", "Student", FormMethod.Get))
 {
-    <input id="lastname" type="text" name="lastName" placeholder="Enter Lastname" autofocus="autofocus" title="Try typing 'Flaga'" />
+    
+    @Html.TextBox("searchString", ViewBag.CurrentSearchString as string, new {placeholder="Enter Lastname", autofocus="autofocus", title="Try typing \'Flaga\'"});
+    
+    //<input id="searchString" type="text" name="searchString" placeholder="Enter Lastname" autofocus="autofocus" title="Try typing 'Flaga'" />
     <button type="submit" value="Search">Search</button>
 }
 
 <div id="students-list">
 @Html.Partial("_StudentsTable", Model)
+</div>
+
+<div class="paging">
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+     
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString  })
+        @Html.Raw(" ");
+        @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString  })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw(" ");
+        @:< Prev
+    }
+     
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString  })
+        @Html.Raw(" ");
+        @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString  })
+    }
+    else
+    {
+        @:Next >
+        @Html.Raw(" ")
+        @:>>
+    }
 </div>
 
 @section Scripts {

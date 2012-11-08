@@ -27,11 +27,28 @@ namespace StudInfoSys.Controllers
         //
         // GET: /Student/
 
-        public ViewResult Index(string sortOrder = "", int? page = null)
+        public ViewResult Index(string searchString = "", string sortOrder = "", int? page = null)
         {
             ViewBag.CurrentSortOrder = sortOrder;
             ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "Name desc" : "";
+
+            //if (Request.HttpMethod == "GET") // if page button is clicked ->
+            //{
+            //    searchString = currentFilter;
+            //}
+            //else // if search (POST)
+            //{
+            //    page = 1;
+            //}
+            ViewBag.CurrentSearchString = searchString;
+
             var students = _studentRepository.GetAll();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.LastName.ToLower().Contains(searchString.ToLower()));
+            }
+
 
             switch (sortOrder)
             {
@@ -47,13 +64,12 @@ namespace StudInfoSys.Controllers
             int pageNumber = (page ?? 1);
             return View(students.ToPagedList(pageNumber, pageSize));
 
-            //return View(students.ToList());
         }
 
 
-        public ViewResult SearchByLastName(string lastName)
+        public ViewResult SearchByLastName(string searchString)
         {
-            return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower().Contains(lastName.ToLower()), false).OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToPagedList(1, 3));
+            return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower().Contains(searchString.ToLower()), false).OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToPagedList(1, 3));
         }
 
 

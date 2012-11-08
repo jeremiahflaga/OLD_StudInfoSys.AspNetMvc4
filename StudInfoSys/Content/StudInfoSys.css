@@ -50,6 +50,7 @@ th a:link {
 
 
 /* Student list/table*/
+
 td .fullname {
     width: 150px;
     display: block;
@@ -66,6 +67,7 @@ td .address {
     height: 80px;
     display: block;
     overflow: hidden;
+    vertical-align: middle;
 }
 
 td .email {
@@ -80,4 +82,12 @@ td .address:hover,
 td .email:hover
 {
     overflow: auto;
+}
+
+
+
+/* Paging section*/
+
+.paging {
+    color: blue;
 }
