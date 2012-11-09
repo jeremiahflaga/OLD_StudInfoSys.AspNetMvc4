@@ -80,4 +80,17 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/themes/base/css")
+    
+    <script type="text/javascript">
+        $(function(){
+            $("#DateOfBirth").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1900:2100",
+                dateFormat: "MM dd, yy"
+            });
+        });
+    </script>
 }
