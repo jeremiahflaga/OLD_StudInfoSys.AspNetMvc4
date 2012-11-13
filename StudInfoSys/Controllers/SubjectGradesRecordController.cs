@@ -11,6 +11,7 @@ using StudInfoSys.ViewModels;
 
 namespace StudInfoSys.Controllers
 {
+    [Authorize]
     public class SubjectGradesRecordController : Controller
     {
         IUnitOfWork _unitOfWork;
@@ -35,7 +36,7 @@ namespace StudInfoSys.Controllers
         /// </summary>
         /// <param name="registrationId">The registration id.</param>
         /// <returns></returns>
-        /// [ChildActionOnly]
+        [ChildActionOnly]
         public ViewResult SubjectGradesRecordByRegistrationId(int registrationId)
         {
             //var subjectGradesRecords = _unitOfWork.SubjectGradesRecordRepository.SearchFor(sgr => sgr.Registration.Id == id, false).Include(sgr => sgr.Subject);
@@ -95,11 +96,23 @@ namespace StudInfoSys.Controllers
         public ActionResult Edit(int id = 0)
         {
             SubjectGradesRecord subjectgradesrecord = _unitOfWork.SubjectGradesRecordRepository.GetById(id);
+            int registrationId = subjectgradesrecord.Registration.Id;
+
             if (subjectgradesrecord == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SubjectId = new SelectList(_unitOfWork.SubjectRepository.GetAll().Distinct(), "Id", "SubjectCode", subjectgradesrecord.SubjectId);
+            
+            var levelIdOfCurrentRegistration = _unitOfWork.RegistrationRepository.GetById(id).Degree.LevelId;
+            var subjectGradesRecordViewModel = new SubjectGradesRecordViewModel
+            {
+                RegistrationId = registrationId,
+                SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll().Where(s => s.LevelId == levelIdOfCurrentRegistration), "Id", "Name"),
+                PeriodsList = _unitOfWork.PeriodRepository.GetAll().Where(p => p.LevelId == levelIdOfCurrentRegistration),
+                GradeViewModels = new List<GradeViewModel>()
+            };
+
+            //ViewBag.SubjectId = new SelectList(_unitOfWork.SubjectRepository.GetAll().Distinct(), "Id", "SubjectCode", subjectgradesrecord.SubjectId);
             return View(subjectgradesrecord);
         }
 

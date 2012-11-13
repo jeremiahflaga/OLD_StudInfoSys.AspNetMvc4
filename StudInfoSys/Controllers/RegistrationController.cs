@@ -14,6 +14,7 @@ using StudInfoSys.Helpers;
 
 namespace StudInfoSys.Controllers
 {
+    [Authorize]
     public class RegistrationController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
