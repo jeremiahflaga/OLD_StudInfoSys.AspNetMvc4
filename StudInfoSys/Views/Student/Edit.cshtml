@@ -78,7 +78,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString })
 </div>
 
 @section Scripts {

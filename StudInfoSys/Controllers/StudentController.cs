@@ -59,72 +59,93 @@ namespace StudInfoSys.Controllers
         {
             return View("Index", _studentRepository.SearchFor(s => s.LastName.ToLower().Contains(searchString.ToLower()), false).OrderBy(s => s.LastName).ThenBy(s => s.FirstName).ToPagedList(1, 3));
         }
-        
-        public ActionResult Details(int id = 0)
+
+        public ActionResult Details(int id = 0, string searchString = "", string sortOrder = "", int? page = null)
         {
             Student student = _studentRepository.GetById(id);
             if (student == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.CurrentSortOrder = sortOrder;
+            ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentPage = page;
+
             return View(student);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(string searchString = "", string sortOrder = "", int? page = null)
         {
+            ViewBag.CurrentSortOrder = sortOrder;
+            ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentPage = page;
+
             return View(new StudentViewModel());
         }
 
         [HttpPost]
-        public ActionResult Create(StudentViewModel studentViewModel)
+        public ActionResult Create(StudentViewModel studentViewModel, string searchString = "", string sortOrder = "", int? page = null)
         {
             if (ModelState.IsValid)
             {
                 var student = MapStudentViewModelToStudent(studentViewModel);
                 _studentRepository.Insert(student);
                 _studentRepository.Save();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { searchString = student.LastName, page = page, sortOrder = sortOrder });
             }
 
             return View(studentViewModel);
         }
 
-        public ActionResult Edit(int id = 0)
+        public ActionResult Edit(int id = 0, string searchString = "", string sortOrder = "", int? page = null)
         {
             Student student = _studentRepository.GetById(id);
             if (student == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.CurrentSortOrder = sortOrder;
+            ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentPage = page;
+
             var studViewModel = MapStudentToStudentViewModel(student);
             return View(studViewModel);
         }
 
         [HttpPost]
-        public ActionResult Edit(StudentViewModel studentViewModel)
+        public ActionResult Edit(StudentViewModel studentViewModel, string searchString = "", string sortOrder = "", int? page = null)
         {
             if (ModelState.IsValid)
             {
                 var student = MapStudentViewModelToStudent(studentViewModel);
                 _studentRepository.Update(student);
                 _studentRepository.Save();
-                return RedirectToAction("Index");
+
+
+                return RedirectToAction("Index", new { page = page, sortOrder = sortOrder, searchString = searchString });
             }
             return View(studentViewModel);
         }
 
-        public ActionResult Delete(int id = 0)
+        public ActionResult Delete(int id = 0, string searchString = "", string sortOrder = "", int? page = null)
         {
             Student student = _studentRepository.GetById(id);
             if (student == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.CurrentSortOrder = sortOrder;
+            ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentPage = page;
+
             return View(student);
         }
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(int id, string searchString = "", string sortOrder = "", int? page = null)
         {
             Student student = _studentRepository.GetById(id);
             if (student == null)
@@ -139,7 +160,7 @@ namespace StudInfoSys.Controllers
             }
             _studentRepository.Delete(student);
             _studentRepository.Save();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { page = page, sortOrder = sortOrder, searchString = searchString });
         }
 
         #region Private methods

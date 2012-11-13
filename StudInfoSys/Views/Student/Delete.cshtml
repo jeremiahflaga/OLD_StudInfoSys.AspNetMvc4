@@ -49,6 +49,6 @@
 @using (Html.BeginForm()) {
     <p>
         <input type="submit" value="Delete" /> |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "Index", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString })
     </p>
 }

@@ -1,7 +1,7 @@
-﻿@model IEnumerable<StudInfoSys.Models.Student>
+﻿@model PagedList.IPagedList<StudInfoSys.Models.Student>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { page = Model.PageNumber, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString })
 </p>
 <table>
     <thead>
@@ -11,13 +11,13 @@
                 @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, searchString = ViewBag.CurrentSearchString })
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().DateOfBirth)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Address)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Email)
             </th>
 
             <th></th>
@@ -41,10 +41,10 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-            @Html.ActionLink("View Registrations", "Index", "Registration", new { id = item.Id }, null)
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, page = Model.PageNumber, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id, page = Model.PageNumber, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, page = Model.PageNumber, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString }) |
+                    @Html.ActionLink("View Registrations", "Index", "Registration", new { id = item.Id }, null)
                 </td>
             </tr>
         }
