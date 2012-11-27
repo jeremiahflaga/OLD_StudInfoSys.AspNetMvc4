@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Edit", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Student", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString }, FormMethod.Post, new { enctype = "multipart/form-data" } ))
 {
     @Html.ValidationSummary(true)
 
