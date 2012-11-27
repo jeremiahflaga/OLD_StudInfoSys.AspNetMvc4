@@ -126,10 +126,12 @@ namespace StudInfoSys.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var student = MapStudentViewModelToStudent(studentViewModel, studentPhoto);
 
-                
-                _studentRepository.Update(student);
+
+
+                _studentRepository.Update(student);                
                 _studentRepository.Save();
                 
                 return RedirectToAction("Index", new { page = page, sortOrder = sortOrder, searchString = searchString });
@@ -201,7 +203,7 @@ namespace StudInfoSys.Controllers
 
         #region Private methods
 
-        private StudentViewModel MapStudentToStudentViewModel(Student student)
+        private static StudentViewModel MapStudentToStudentViewModel(Student student)
         {
             var studViewModel = new StudentViewModel
             {
@@ -212,6 +214,7 @@ namespace StudInfoSys.Controllers
                 Id = student.Id,
                 LastName = student.LastName,
                 Photo = student.Photo,
+                PhotoContentType = student.PhotoContentType,
                 StudentStatus = student.StudentStatus,
                 Email = student.Email
             };
@@ -219,16 +222,35 @@ namespace StudInfoSys.Controllers
         }
 
         private Student MapStudentViewModelToStudent(StudentViewModel studentViewModel, HttpPostedFileBase studentPhoto)
-        {
+        {            
             var student = _studentRepository.GetById(studentViewModel.Id);
-            
-            student.Address = studentViewModel.Address;
-            student.DateOfBirth = studentViewModel.DateOfBirth;
-            student.FirstName = studentViewModel.FirstName;
-            student.Gender = studentViewModel.Gender;
-            student.LastName = studentViewModel.LastName;
-            student.StudentStatus = studentViewModel.StudentStatus;
-            student.Email = studentViewModel.Email;
+
+            //for editing existing student
+            if (student != null)
+            {
+                student.Address = studentViewModel.Address;
+                student.DateOfBirth = studentViewModel.DateOfBirth;
+                student.FirstName = studentViewModel.FirstName;
+                student.Gender = studentViewModel.Gender;
+                student.LastName = studentViewModel.LastName;
+                student.StudentStatus = studentViewModel.StudentStatus;
+                student.Email = studentViewModel.Email;
+
+            }
+            else // for creating new student
+            {
+                student = new Student
+                {
+                    Address = studentViewModel.Address,
+                    DateOfBirth = studentViewModel.DateOfBirth,
+                    FirstName = studentViewModel.FirstName,
+                    Gender = studentViewModel.Gender,
+                    Id = studentViewModel.Id,
+                    LastName = studentViewModel.LastName,
+                    StudentStatus = studentViewModel.StudentStatus,
+                    Email = studentViewModel.Email
+                };
+            }
 
             if (studentPhoto != null && studentPhoto.ContentLength > 0)
             {

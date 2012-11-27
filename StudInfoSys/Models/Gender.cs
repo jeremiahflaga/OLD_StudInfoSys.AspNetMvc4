@@ -4,10 +4,10 @@ namespace StudInfoSys.Models
 {
     public enum Gender
     {
-        [Description("Male - asdf")]
+        [Description("Male")]
         Male = 1,
 
-        [Description("Female- asdf")]
+        [Description("Female")]
         Female
     }
 }

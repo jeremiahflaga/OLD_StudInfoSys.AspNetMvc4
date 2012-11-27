@@ -6,23 +6,24 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Edit", "Student", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString }, FormMethod.Post, new { enctype = "multipart/form-data" } ))
+@using (Html.BeginForm("Edit", "Student", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
-
+    @Html.HiddenFor(model => model.Id)
     
-        
-        <div class="photo">
-            <img class="photo" src='@Url.Action("GetImage", new { id = Model.Id } )' />
+    <div class="photo">
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Photo)
+        </div>
+        <div>
+            <img class="photo" src='@Url.Action("GetImage", new { id = Model.Id })' />
             <input type="file" name="studentPhoto" id="studentPhoto" />
         </div>
-
+    </div>
     
     <fieldset>
-        <legend>Student</legend>
+        <legend>Student</legend>        
 
-        @Html.HiddenFor(model => model.Id)
-        
         <div class="editor-label">
             @Html.LabelFor(model => model.Gender)
         </div>
@@ -55,7 +56,7 @@
             @Html.EditorFor(model => model.DateOfBirth)
             @Html.ValidationMessageFor(model => model.DateOfBirth)
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Email)
         </div>
@@ -87,16 +88,16 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString })
+    @Html.ActionLink("Back to List", "Index", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/themes/base/css")
-    
+
     <script type="text/javascript">
-        $(function(){
+        $(function () {
             $("#DateOfBirth").datepicker({
                 changeMonth: true,
                 changeYear: true,

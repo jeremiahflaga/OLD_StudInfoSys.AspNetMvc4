@@ -6,11 +6,22 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm("Create", "Student", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.ValidationSummary(true)
 
+    <div class="photo">
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Photo)
+        </div>
+        <div>
+            <img class="photo" src='@Url.Action("GetImage", new { id = Model.Id })' />
+            <input type="file" name="studentPhoto" id="studentPhoto" />
+        </div>
+    </div>
+    
     <fieldset>
-        <legend>Student</legend>
+        <legend>Student</legend>       
 
         <div class="editor-label">
             @Html.LabelFor(model => model.FirstName)
@@ -27,9 +38,9 @@
             @Html.EditorFor(model => model.LastName)
             @Html.ValidationMessageFor(model => model.LastName)
         </div>
-        
+
         <div class="editor-label">
-            @Html.LabelFor(model => model.Gender)   
+            @Html.LabelFor(model => model.Gender)
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(model => model.Gender, Model.GendersList)
@@ -43,7 +54,7 @@
             @Html.EditorFor(model => model.DateOfBirth)
             @Html.ValidationMessageFor(model => model.DateOfBirth)
         </div>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Email)
         </div>
@@ -59,9 +70,9 @@
             @Html.EditorFor(model => model.Address)
             @Html.ValidationMessageFor(model => model.Address)
         </div>
-        
+
         <div class="editor-label">
-            @Html.LabelFor(model => model.StudentStatus)   
+            @Html.LabelFor(model => model.StudentStatus)
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(model => model.StudentStatus, Model.StudentStatusList)
@@ -75,16 +86,16 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString })
+    @Html.ActionLink("Back to List", "Index", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/themes/base/css")
-    
+
     <script type="text/javascript">
-        $(function(){
+        $(function () {
             $("#DateOfBirth").datepicker({
                 changeMonth: true,
                 changeYear: true,

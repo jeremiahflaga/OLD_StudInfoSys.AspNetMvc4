@@ -7,52 +7,52 @@
 <h2>Details</h2>
 
 <div class="display-field">
-        <img class="photo" src='@Url.Action("GetImage", new { id = Model.Id })' />
-    </div>
+    <img class="photo" src='@Url.Action("GetImage", new { id = Model.Id })' />
+</div>
 <fieldset>
     <legend>Student</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.FullName)
+        @Html.DisplayNameFor(model => model.FullName)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.FullName)
     </div>
-    
+
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Gender)
+        @Html.DisplayNameFor(model => model.Gender)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Gender)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.DateOfBirth)
+        @Html.DisplayNameFor(model => model.DateOfBirth)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.DateOfBirth)
     </div>
-    
+
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Email)
+        @Html.DisplayNameFor(model => model.Email)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Email)
     </div>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Address)
+        @Html.DisplayNameFor(model => model.Address)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Address)
     </div>
 
-    
-    
+
+
 
 </fieldset>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id , page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString }) |
-    @Html.ActionLink("Back to List", "Index", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id, page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString }) |
+    @Html.ActionLink("Back to List", "Index", new { page = ViewBag.CurrentPage, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
 </p>

@@ -14,27 +14,27 @@
 }))*@
 
 
-@using(Html.BeginForm("Index", "Student", FormMethod.Get))
+@using (Html.BeginForm("Index", "Student", FormMethod.Get))
 {
     
-    @Html.TextBox("searchString", ViewBag.CurrentSearchString as string, new {placeholder="Enter Lastname", autofocus="autofocus", title="Try typing \'Flaga\'"});
+    @Html.TextBox("searchString", ViewBag.CurrentSearchString as string, new { placeholder = "Enter Lastname", autofocus = "autofocus", title = "Try typing \'Flaga\'" });
     //<input id="searchString" type="text" name="searchString" placeholder="Enter Lastname" autofocus="autofocus" title="Try typing 'Flaga'" />
     <button type="submit" value="Search">Search</button>
 }
 
 <div id="students-list">
-@Html.Partial("_StudentsTable", Model)
+    @Html.Partial("_StudentsTable", Model)
 </div>
 
 <div class="paging">
     Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
     of @Model.PageCount
-     
+
     @if (Model.HasPreviousPage)
     {
-        @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString  })
+        @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
         @Html.Raw(" ");
-        @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString  })
+        @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
     }
     else
     {
@@ -42,12 +42,12 @@
         @Html.Raw(" ");
         @:< Prev
     }
-     
+
     @if (Model.HasNextPage)
     {
-        @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString  })
+        @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
         @Html.Raw(" ");
-        @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSortOrder, searchString=ViewBag.CurrentSearchString  })
+        @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
     }
     else
     {
@@ -62,17 +62,17 @@
     @Styles.Render("~/Content/themes/base/css")
     <script type="text/javascript">
         $(function () {
-            
+
             // Display "Start"
             $('table').before('<span id="start" style="color: red; font-size: 20px;">Start testing this app with <em><strong>\"Flaga, Jboy\"</strong><em></span>');
             $('tr:contains(Jboy)').css({ color: 'red' });
 
             $('th a:contains(Name)').append('<span style="color: green; font-size: 15px; width: 20px;"> (Click to sort)</span>');
-            
+
             $("#searchString").tooltip();
         });
 
 
     </script>
-    
+
 }
