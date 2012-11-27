@@ -88,11 +88,11 @@ namespace StudInfoSys.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(StudentViewModel studentViewModel, string searchString = "", string sortOrder = "", int? page = null)
+        public ActionResult Create(StudentViewModel studentViewModel, HttpPostedFileBase studentPhoto, string searchString = "", string sortOrder = "", int? page = null)
         {
             if (ModelState.IsValid)
             {
-                var student = MapStudentViewModelToStudent(studentViewModel);
+                var student = MapStudentViewModelToStudent(studentViewModel, studentPhoto);
                 _studentRepository.Insert(student);
                 _studentRepository.Save();
                 return RedirectToAction("Index", new { searchString = student.LastName, page = page, sortOrder = sortOrder });
@@ -126,15 +126,9 @@ namespace StudInfoSys.Controllers
         {
             if (ModelState.IsValid)
             {
-                var student = MapStudentViewModelToStudent(studentViewModel);
+                var student = MapStudentViewModelToStudent(studentViewModel, studentPhoto);
 
-                if (studentPhoto != null && studentPhoto.ContentLength > 0)
-                {
-                    student.Photo = new byte[studentPhoto.ContentLength];
-                    studentPhoto.InputStream.Read(student.Photo, 0, studentPhoto.ContentLength);
-                    student.PhotoContentType = studentPhoto.ContentType;
-                }
-
+                
                 _studentRepository.Update(student);
                 _studentRepository.Save();
                 
@@ -207,7 +201,7 @@ namespace StudInfoSys.Controllers
 
         #region Private methods
 
-        private static StudentViewModel MapStudentToStudentViewModel(Student student)
+        private StudentViewModel MapStudentToStudentViewModel(Student student)
         {
             var studViewModel = new StudentViewModel
             {
@@ -224,21 +218,26 @@ namespace StudInfoSys.Controllers
             return studViewModel;
         }
 
-        private static Student MapStudentViewModelToStudent(StudentViewModel studentViewModel)
+        private Student MapStudentViewModelToStudent(StudentViewModel studentViewModel, HttpPostedFileBase studentPhoto)
         {
-            var studViewModel = new Student
+            var student = _studentRepository.GetById(studentViewModel.Id);
+            
+            student.Address = studentViewModel.Address;
+            student.DateOfBirth = studentViewModel.DateOfBirth;
+            student.FirstName = studentViewModel.FirstName;
+            student.Gender = studentViewModel.Gender;
+            student.LastName = studentViewModel.LastName;
+            student.StudentStatus = studentViewModel.StudentStatus;
+            student.Email = studentViewModel.Email;
+
+            if (studentPhoto != null && studentPhoto.ContentLength > 0)
             {
-                Address = studentViewModel.Address,
-                DateOfBirth = studentViewModel.DateOfBirth,
-                FirstName = studentViewModel.FirstName,
-                Gender = studentViewModel.Gender,
-                Id = studentViewModel.Id,
-                LastName = studentViewModel.LastName,
-                Photo = studentViewModel.Photo,
-                StudentStatus = studentViewModel.StudentStatus,
-                Email = studentViewModel.Email
-            };
-            return studViewModel;
+                student.Photo = new byte[studentPhoto.ContentLength];
+                studentPhoto.InputStream.Read(student.Photo, 0, studentPhoto.ContentLength);
+                student.PhotoContentType = studentPhoto.ContentType;
+            }
+
+            return student;
         }
         
         #endregion
