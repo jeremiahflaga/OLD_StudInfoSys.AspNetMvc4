@@ -49,7 +49,7 @@ namespace StudInfoSys.Migrations
 
         private Student[] CreateListOfStudents()
         {
-            Image img = Properties.Resources.NoPhoto;
+            Image img = Properties.Resources.SamplePhoto;
             byte[] photo;
 
             using (MemoryStream ms = new MemoryStream())
@@ -70,16 +70,17 @@ namespace StudInfoSys.Migrations
                                 StudentStatus = StudentStatus.UndergraduateStudiesOnGoing,
                                 Email = "jeremiahflaga@gmail.com",
                                 Photo = photo,
+                                PhotoContentType = "image/png",
                                 Registrations = CreateListOfRegistrations()
                             },
 
-                            new Student { FirstName = "Rimmy Joy", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Female, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
-                            new Student { FirstName = "Debbie", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
-                            new Student { FirstName = "Jonathan", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
-                            new Student { FirstName = "Yves Donald", LastName = "Maquilan", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
-                            new Student { FirstName = "Donald", LastName = "Magallena", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
-                            new Student { FirstName = "Averyveryveryverylongfirstname", LastName = "Averyveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
-                            new Student { FirstName = "Zeryveryveryverylongfirstname", LastName = "Zeryveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, }
+                            new Student { FirstName = "Rimmy Joy", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Female, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, PhotoContentType = "image/png" },
+                            new Student { FirstName = "Debbie", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, PhotoContentType = "image/png" },
+                            new Student { FirstName = "Jonathan", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, PhotoContentType = "image/png" },
+                            new Student { FirstName = "Yves Donald", LastName = "Maquilan", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, PhotoContentType = "image/png" },
+                            new Student { FirstName = "Donald", LastName = "Magallena", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, PhotoContentType = "image/png" },
+                            new Student { FirstName = "Averyveryveryverylongfirstname", LastName = "Averyveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, PhotoContentType = "image/png" },
+                            new Student { FirstName = "Zeryveryveryverylongfirstname", LastName = "Zeryveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, PhotoContentType = "image/png" }
                            
                         };
         }

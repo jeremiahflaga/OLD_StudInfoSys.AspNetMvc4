@@ -46,9 +46,10 @@ namespace StudInfoSys.ViewModels
         [Required]
         [StringLength(500, MinimumLength = 1)]
         public string Address { get; set; }
-
-        [MaxLength(5000)]
+                
         public byte[] Photo { get; set; }
+
+        public virtual string PhotoContentType { get; set; }
 
         [Required]
         public Gender Gender { get; set; }

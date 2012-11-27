@@ -11,6 +11,9 @@ using StudInfoSys.ViewModels;
 using System.Text;
 using StudInfoSys.Helpers;
 using PagedList;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace StudInfoSys.Controllers
 {
@@ -95,6 +98,10 @@ namespace StudInfoSys.Controllers
                 return RedirectToAction("Index", new { searchString = student.LastName, page = page, sortOrder = sortOrder });
             }
 
+            ViewBag.CurrentSortOrder = sortOrder;
+            ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentPage = page;
+
             return View(studentViewModel);
         }
 
@@ -115,17 +122,29 @@ namespace StudInfoSys.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(StudentViewModel studentViewModel, string searchString = "", string sortOrder = "", int? page = null)
+        public ActionResult Edit(StudentViewModel studentViewModel, HttpPostedFileBase studentPhoto, string searchString = "", string sortOrder = "", int? page = null)
         {
             if (ModelState.IsValid)
             {
                 var student = MapStudentViewModelToStudent(studentViewModel);
+
+                if (studentPhoto != null && studentPhoto.ContentLength > 0)
+                {
+                    student.Photo = new byte[studentPhoto.ContentLength];
+                    studentPhoto.InputStream.Read(student.Photo, 0, studentPhoto.ContentLength);
+                    student.PhotoContentType = studentPhoto.ContentType;
+                }
+
                 _studentRepository.Update(student);
                 _studentRepository.Save();
-
-
+                
                 return RedirectToAction("Index", new { page = page, sortOrder = sortOrder, searchString = searchString });
             }
+
+            ViewBag.CurrentSortOrder = sortOrder;
+            ViewBag.CurrentSearchString = searchString;
+            ViewBag.CurrentPage = page;
+
             return View(studentViewModel);
         }
 
@@ -171,9 +190,19 @@ namespace StudInfoSys.Controllers
                 return HttpNotFound();
             }
 
-            var image = student.Photo;
+            var photo = student.Photo;
+            if (photo == null)
+            {
+                Image img = Properties.Resources.NoPhoto;
 
-            return File(image, "image/x-png");
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    img.Save(ms, ImageFormat.Png);
+                    photo = ms.ToArray();
+                }
+            }
+
+            return File(photo, student.PhotoContentType?? "image/*");
         }
 
         #region Private methods

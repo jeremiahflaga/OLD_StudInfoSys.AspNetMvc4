@@ -30,6 +30,8 @@ namespace StudInfoSys.Models
         
         public virtual byte[] Photo { get; set; }
 
+        public virtual string PhotoContentType { get; set; }
+
         [Required]
         public virtual Gender Gender { get; set; }
 
