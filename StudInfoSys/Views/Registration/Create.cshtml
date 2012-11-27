@@ -50,7 +50,7 @@
             @Html.LabelFor(model => model.DateOfRegistration)
         </div>
         <div class="editor-field">
-            @Html.DisplayFor(model => model.DateOfRegistration)
+            @Html.EditorFor(model => model.DateOfRegistration)
            @* @Html.ValidationMessageFor(model => model.DateOfRegistration)*@
         </div>
 
@@ -71,6 +71,12 @@
     
     <script type="text/javascript">
         $(function () {
+            $("#DateOfRegistration").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1900:2100",
+                dateFormat: "MM dd, yy"
+            });
 
             $("#SchoolYearFrom").blur(function () {
                 var yearFrom = $(this).val();
