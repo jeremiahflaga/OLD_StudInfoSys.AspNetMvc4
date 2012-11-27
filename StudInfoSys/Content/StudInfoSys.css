@@ -81,7 +81,7 @@ td .date-of-birth {
 }
 
 td .address {
-    width: 250px;
+    width: 210px;
     display: block;
     overflow: hidden;
     vertical-align: middle;
@@ -89,7 +89,7 @@ td .address {
 
 
 td .email {
-    width: 150px;
+    width: 110px;
     display: block;
     overflow: hidden;
 }
@@ -116,6 +116,11 @@ td .email:hover
 .photo {
     float: right;
     width: 200px;
-    margin-right: 100px;
-    
+    margin-right: 100px;    
+}
+
+
+.photo-small {
+    float: right;
+    width: 50px;    
 }

@@ -7,6 +7,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().Photo)
+            </th>
+            <th>
                 @*@Html.DisplayNameFor(model => model.FullName)*@
                 @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParam, searchString = ViewBag.CurrentSearchString })
             </th>
@@ -27,6 +30,10 @@
         @foreach (var item in Model)
         {
             <tr>
+                
+                <td>
+                    <img class="photo-small" src='@Url.Action("GetImage", new { id = item.Id })' />
+                </td>
                 <td>
                     <span class="fullname">@Html.DisplayFor(modelItem => item.FullName)</span>
                 </td>
