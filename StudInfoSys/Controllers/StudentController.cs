@@ -90,6 +90,8 @@ namespace StudInfoSys.Controllers
             if (ModelState.IsValid)
             {
                 var student = MapStudentViewModelToStudent(studentViewModel);
+                var path = Server.MapPath(Url.Content("~/Content/"));
+                student.Photo = System.IO.File.ReadAllBytes(path + "Thanksgiving.jpg");
                 _studentRepository.Insert(student);
                 _studentRepository.Save();
                 return RedirectToAction("Index", new { searchString = student.LastName, page = page, sortOrder = sortOrder });
@@ -161,6 +163,19 @@ namespace StudInfoSys.Controllers
             _studentRepository.Delete(student);
             _studentRepository.Save();
             return RedirectToAction("Index", new { page = page, sortOrder = sortOrder, searchString = searchString });
+        }
+
+        public ActionResult GetImage(int id)
+        {
+            Student student = _studentRepository.GetById(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+
+            var image = student.Photo;
+
+            return File(image, "image/x-png");
         }
 
         #region Private methods

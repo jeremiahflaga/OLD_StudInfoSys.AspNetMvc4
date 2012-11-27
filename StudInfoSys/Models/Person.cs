@@ -24,13 +24,10 @@ namespace StudInfoSys.Models
         [DataType(DataType.Date)]
         public virtual DateTime DateOfBirth { get; set; }
 
-        
-
         [Required]
         [StringLength(500, MinimumLength = 1)]
         public virtual string Address { get; set; }
-
-        [MaxLength(5000)]
+        
         public virtual byte[] Photo { get; set; }
 
         [Required]

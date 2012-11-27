@@ -109,3 +109,13 @@ td .email:hover
 .paging {
     color: blue;
 }
+
+
+
+
+.photo {
+    float: right;
+    width: 200px;
+    margin-right: 100px;
+    
+}
