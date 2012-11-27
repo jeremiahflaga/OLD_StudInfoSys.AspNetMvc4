@@ -122,6 +122,8 @@ namespace StudInfoSys.Controllers
             if (ModelState.IsValid)
             {
                 var student = MapStudentViewModelToStudent(studentViewModel);
+                var path = Server.MapPath(Url.Content("~/Content/"));
+                student.Photo = System.IO.File.ReadAllBytes(path + "Thanksgiving.jpg");
                 _studentRepository.Update(student);
                 _studentRepository.Save();
 
