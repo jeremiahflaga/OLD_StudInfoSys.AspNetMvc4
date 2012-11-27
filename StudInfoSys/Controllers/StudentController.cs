@@ -90,8 +90,6 @@ namespace StudInfoSys.Controllers
             if (ModelState.IsValid)
             {
                 var student = MapStudentViewModelToStudent(studentViewModel);
-                var path = Server.MapPath(Url.Content("~/Content/"));
-                student.Photo = System.IO.File.ReadAllBytes(path + "Thanksgiving.jpg");
                 _studentRepository.Insert(student);
                 _studentRepository.Save();
                 return RedirectToAction("Index", new { searchString = student.LastName, page = page, sortOrder = sortOrder });
@@ -122,8 +120,6 @@ namespace StudInfoSys.Controllers
             if (ModelState.IsValid)
             {
                 var student = MapStudentViewModelToStudent(studentViewModel);
-                var path = Server.MapPath(Url.Content("~/Content/"));
-                student.Photo = System.IO.File.ReadAllBytes(path + "Thanksgiving.jpg");
                 _studentRepository.Update(student);
                 _studentRepository.Save();
 

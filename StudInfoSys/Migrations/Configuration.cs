@@ -5,6 +5,9 @@ using System.Diagnostics;
 using StudInfoSys.Models;
 using System.Data.Entity.Migrations;
 using StudInfoSys.Repository;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
 
 namespace StudInfoSys.Migrations
 {
@@ -46,6 +49,15 @@ namespace StudInfoSys.Migrations
 
         private Student[] CreateListOfStudents()
         {
+            Image img = Properties.Resources.NoPhoto;
+            byte[] photo;
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                img.Save(ms, ImageFormat.Png);
+                photo = ms.ToArray();
+            }
+
             return new Student[]
                        {
                             new Student
@@ -57,16 +69,17 @@ namespace StudInfoSys.Migrations
                                 Gender = Gender.Male,
                                 StudentStatus = StudentStatus.UndergraduateStudiesOnGoing,
                                 Email = "jeremiahflaga@gmail.com",
+                                Photo = photo,
                                 Registrations = CreateListOfRegistrations()
                             },
 
-                            new Student { FirstName = "Rimmy Joy", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Female, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },
-                            new Student { FirstName = "Debbie", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },
-                            new Student { FirstName = "Jonathan", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },                            
-                            new Student { FirstName = "Yves Donald", LastName = "Maquilan", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },
-                            new Student { FirstName = "Donald", LastName = "Magallena", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },
-                            new Student { FirstName = "Averyveryveryverylongfirstname", LastName = "Averyveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" },
-                            new Student { FirstName = "Zeryveryveryverylongfirstname", LastName = "Zeryveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com" }
+                            new Student { FirstName = "Rimmy Joy", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Female, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
+                            new Student { FirstName = "Debbie", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
+                            new Student { FirstName = "Jonathan", LastName = "Flaga", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
+                            new Student { FirstName = "Yves Donald", LastName = "Maquilan", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
+                            new Student { FirstName = "Donald", LastName = "Magallena", DateOfBirth = new DateTime(1990, 01, 01), Address = "Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
+                            new Student { FirstName = "Averyveryveryverylongfirstname", LastName = "Averyveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, },
+                            new Student { FirstName = "Zeryveryveryverylongfirstname", LastName = "Zeryveryveryverylonglastname", DateOfBirth = new DateTime(1990, 01, 01), Address = "Veryveryveryveryveryveryveryveryveryveryveryveryveryveryvery long Address", Gender = Gender.Male, StudentStatus = StudentStatus.UndergraduateStudiesOnGoing, Email = "mail@mail.com", Photo = photo, }
                            
                         };
         }
