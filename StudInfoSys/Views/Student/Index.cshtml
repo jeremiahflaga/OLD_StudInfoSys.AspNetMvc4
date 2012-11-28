@@ -22,40 +22,53 @@
     <button type="submit" value="Search">Search</button>
 }
 
-<div id="students-list">
-    @Html.Partial("_StudentsTable", Model)
-</div>
+@if (Model.Count() <= 0 && ViewBag.CurrentSearchString as string != "")
+{
+    <h2>No student records found for "@(ViewBag.CurrentSearchString as string)"</h2>
+}
+else if (Model.Count() <= 0)
+{
+    <h2>No student records</h2>
+}
+else
+{
+    
+    <div id="students-list">
+        @Html.Partial("_StudentsTable", Model)
+    </div>
 
-<div class="paging">
-    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
-    of @Model.PageCount
+    <div class="paging">
+        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+        of @Model.PageCount
 
-    @if (Model.HasPreviousPage)
-    {
-        @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
-        @Html.Raw(" ");
-        @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
-    }
-    else
-    {
-        @:<<
-        @Html.Raw(" ");
-        @:< Prev
+        @if (Model.HasPreviousPage)
+        {
+            @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
+            @Html.Raw(" ");
+            @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
+        }
+        else
+        {
+            @:<<
+            @Html.Raw(" ");
+            @:< Prev
     }
 
-    @if (Model.HasNextPage)
-    {
-        @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
-        @Html.Raw(" ");
-        @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
+        @if (Model.HasNextPage)
+        {
+            @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
+            @Html.Raw(" ");
+            @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSortOrder, searchString = ViewBag.CurrentSearchString })
+        }
+        else
+        {
+            @:Next >
+            @Html.Raw(" ")
+            @:>>
     }
-    else
-    {
-        @:Next >
-        @Html.Raw(" ")
-        @:>>
-    }
-</div>
+    </div>   
+    
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryui")
