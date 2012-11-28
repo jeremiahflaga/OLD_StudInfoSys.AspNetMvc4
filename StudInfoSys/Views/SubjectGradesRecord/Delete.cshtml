@@ -11,11 +11,19 @@
     <legend>SubjectGradesRecord</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Subject.SubjectCode)
+        @Html.DisplayNameFor(model => model.Subject.Name)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Subject.SubjectCode)
+        @Html.DisplayFor(model => model.Subject.Name)
     </div>
+    
+    @{
+        foreach (var grade in Model.Grades)
+        {
+        @Html.Partial("_DisplayGrades", grade);
+        }
+    }
+
 </fieldset>
 @using (Html.BeginForm()) {
     <p>

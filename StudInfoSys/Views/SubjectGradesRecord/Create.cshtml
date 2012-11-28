@@ -7,12 +7,14 @@
 <h2>Create</h2>
 
 @using (Html.BeginForm())
-{
-    @Html.HiddenFor(model => model.RegistrationId)
+{    
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>SubjectGradesRecord</legend>
+
+        @Html.HiddenFor(model => model.RegistrationId)
+        @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
             @Html.LabelFor(model => model.SubjectId, "Subject")

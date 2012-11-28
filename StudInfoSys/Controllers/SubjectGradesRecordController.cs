@@ -62,15 +62,16 @@ namespace StudInfoSys.Controllers
         /// <summary>
         /// Creates a SubjectGradesRecord for the specified registration id.
         /// </summary>
-        /// <param name="id">The registration id.</param>
+        /// <param name="registrationId">The registration id.</param>
         /// <returns></returns>
-        public ActionResult Create(int id)
+        public ActionResult Create(int registrationId)
         {
-            var levelIdOfCurrentRegistration = _unitOfWork.RegistrationRepository.GetById(id).Degree.LevelId;
+            var levelIdOfCurrentRegistration = _unitOfWork.RegistrationRepository.GetById(registrationId).Degree.LevelId;
             
             var subjectGradesRecordViewModel = new SubjectGradesRecordViewModel
             {
-                RegistrationId = id,
+                //Id = 0,
+                RegistrationId = registrationId,
                 SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll().Where(s => s.LevelId == levelIdOfCurrentRegistration) , "Id", "Name"),
                 PeriodsList = _unitOfWork.PeriodRepository.GetAll().Where(p => p.LevelId == levelIdOfCurrentRegistration),
                 GradeViewModels = new List<GradeViewModel>()

@@ -10,22 +10,20 @@
     <legend>SubjectGradesRecord</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.Subject.Name)
+        @Html.DisplayNameFor(model => model.Subject.Name)
     </div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Subject.Name)
     </div>
-
     
-
     @{
-            foreach (var grade in Model.Grades)
-            {
-                @Html.Partial("_DisplayGrades", grade);
-            }
+        foreach (var grade in Model.Grades)
+        {
+        @Html.Partial("_DisplayGrades", grade);
         }
+    }
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
