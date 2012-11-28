@@ -4,6 +4,7 @@
 @using (Html.BeginCollectionItem("gradeviewmodels"))
 {
     @Html.HiddenFor(model => model.PeriodId)
+    @Html.HiddenFor(model => model.Id)
     
     <div class="editor-label">
         @Html.DisplayFor(model => model.PeriodName)

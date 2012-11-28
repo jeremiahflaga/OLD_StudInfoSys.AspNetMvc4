@@ -1,4 +1,4 @@
-﻿@model StudInfoSys.Models.SubjectGradesRecord
+﻿@model StudInfoSys.ViewModels.SubjectGradesRecordViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -8,18 +8,40 @@
 
 @using (Html.BeginForm()) {
     @Html.ValidationSummary(true)
+    
 
     <fieldset>
         <legend>SubjectGradesRecord</legend>
 
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.RegistrationId)
 
-        <div class="editor-label">
+        @*<div class="editor-label">
             @Html.LabelFor(model => model.SubjectId, "Subject")
         </div>
         <div class="editor-field">
             @Html.DropDownList("SubjectId", String.Empty)
             @Html.ValidationMessageFor(model => model.SubjectId)
+        </div>*@
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SubjectId, "Subject")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.SubjectId, Model.SubjectsList, "Select...")
+            @Html.ValidationMessageFor(model => model.SubjectId)
+        </div>
+
+
+
+        <div id="grades-list" class="editor-label">        
+
+        @{
+            foreach (var grade in Model.GradeViewModels)
+            {
+                @Html.Partial("_CreateGradeViewModels", grade); //NOTE: you have to use @           
+            }
+        }
         </div>
 
         <p>

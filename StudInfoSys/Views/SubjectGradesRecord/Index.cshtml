@@ -5,7 +5,7 @@
 }
 
 <h2>Index</h2>
-<h3 style="color: red;">NOTE: 'Edit' and 'Delete' functionalities not yet implemented</h3>
+<h3 style="color: red;">NOTE: 'Delete' functionality not yet implemented</h3>
 <p>
     @Html.ActionLink("Create New", "Create", new { id = ViewBag.RegistrationId })
 </p>
@@ -45,8 +45,8 @@ else
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
                 </td>
             </tr>
         }

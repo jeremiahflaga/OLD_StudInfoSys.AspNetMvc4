@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using StudInfoSys.Helpers;
+using System.Web.Mvc;
 
 namespace StudInfoSys.App_Start
 {
@@ -7,6 +8,7 @@ namespace StudInfoSys.App_Start
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            //filters.Add(new MyHandleErrorAttribute());
         }
     }
 }
