@@ -62,7 +62,7 @@ namespace StudInfoSys.Controllers
         /// <summary>
         /// Creates a SubjectGradesRecord for the specified registration id.
         /// </summary>
-        /// <param name="registrationId">The registration id.</param>
+        /// <param name="registrationId">The current registration id to which this SubjectGradesRecord is related.</param>
         /// <returns></returns>
         public ActionResult Create(int registrationId)
         {
@@ -104,7 +104,7 @@ namespace StudInfoSys.Controllers
         /// <summary>
         /// Edits the SubjectGradesRecord with the specified id.
         /// </summary>
-        /// <param name="id">The grade record id.</param>
+        /// <param name="id">The SubjectGradesRecord id.</param>
         /// <returns></returns>
         public ActionResult Edit(int id = 0)
         {
@@ -145,6 +145,11 @@ namespace StudInfoSys.Controllers
             return View(subjectGradesRecordViewModel);
         }
 
+        /// <summary>
+        /// Deletes the SubjectGradesRecord with the specified id.
+        /// </summary>
+        /// <param name="id">The SubjectGradesRecord id.</param>
+        /// <returns></returns>
         public ActionResult Delete(int id = 0)
         {
             SubjectGradesRecord subjectgradesrecord = _unitOfWork.SubjectGradesRecordRepository.GetById(id);
