@@ -121,8 +121,7 @@ namespace StudInfoSys.Controllers
 
             subjectGradesRecordViewModel.SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll().Where(s => s.LevelId == levelIdOfCurrentRegistration), "Id", "Name");
             subjectGradesRecordViewModel.PeriodsList = _unitOfWork.PeriodRepository.GetAll().Where(p => p.LevelId == levelIdOfCurrentRegistration);
-                
-            //ViewBag.SubjectId = new SelectList(_unitOfWork.SubjectRepository.GetAll().Distinct(), "Id", "SubjectCode", subjectgradesrecord.SubjectId);
+
             return View(subjectGradesRecordViewModel);
         }
 
@@ -136,12 +135,11 @@ namespace StudInfoSys.Controllers
                 _unitOfWork.SubjectGradesRecordRepository.Save();
                 return RedirectToAction("Index", new { id = subjectGradesRecordViewModel.RegistrationId });
             }
-            //ViewBag.SubjectId = new SelectList(_unitOfWork.SubjectRepository.GetAll().Distinct(), "Id", "SubjectCode", subjectgradesrecord.SubjectId);
+            
             var levelIdOfCurrentRegistration = _unitOfWork.RegistrationRepository.GetById(subjectGradesRecordViewModel.RegistrationId).Degree.LevelId;
 
             subjectGradesRecordViewModel.SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll().Where(s => s.LevelId == levelIdOfCurrentRegistration), "Id", "Name");
             subjectGradesRecordViewModel.PeriodsList = _unitOfWork.PeriodRepository.GetAll().Where(p => p.LevelId == levelIdOfCurrentRegistration);
-            
 
             return View(subjectGradesRecordViewModel);
         }
@@ -160,9 +158,14 @@ namespace StudInfoSys.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             SubjectGradesRecord subjectgradesrecord = _unitOfWork.SubjectGradesRecordRepository.GetById(id);
+            foreach (var grade in subjectgradesrecord.Grades.ToList())
+            {
+                _unitOfWork.GradeRepository.Delete(grade);
+            }
+            var registrationIdOfCurrentSubjectGradesRecord = subjectgradesrecord.Registration.Id;
             _unitOfWork.SubjectGradesRecordRepository.Delete(subjectgradesrecord);
             _unitOfWork.SubjectGradesRecordRepository.Save();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { id = registrationIdOfCurrentSubjectGradesRecord });
         }
         
         private SubjectGradesRecord MapSubjectGradesRecordViewModel_To_SubjectGradesRecord(SubjectGradesRecordViewModel subjectGradesRecordViewModel)
