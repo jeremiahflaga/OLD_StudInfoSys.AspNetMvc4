@@ -42,6 +42,9 @@ namespace StudInfoSys.ViewModels
         [Display(Name="Student")]
         public int StudentId { get; set; }
 
+        [Display(Name = "Name")]
+        public string StudentFullName { get; set; }
+
         [Display(Name = "School Year", Order = 500)]
         public string SchoolYear
         {

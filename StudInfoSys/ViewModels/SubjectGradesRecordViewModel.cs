@@ -45,6 +45,9 @@ namespace StudInfoSys.ViewModels
         //    }
         //}
 
+        [Display(Name = "Name")]
+        public string StudentFullName { get; set; }
+
         //for navigation only
         //public virtual Registration Registration { get; set; }
         public int RegistrationId { get; set; } //for easy access to Registration's Id

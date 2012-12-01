@@ -27,7 +27,7 @@ namespace StudInfoSys.Controllers
         /// </summary>
         /// <param name="id">The registration id.</param>
         /// <returns></returns>
-        public ViewResult Index(int id)
+        public ActionResult Index(int id)
         {
             return SubjectGradesRecordByRegistrationId(id);
         }
@@ -38,11 +38,17 @@ namespace StudInfoSys.Controllers
         /// <param name="registrationId">The registration id.</param>
         /// <returns></returns>
         [ChildActionOnly]
-        public ViewResult SubjectGradesRecordByRegistrationId(int registrationId)
+        public ActionResult SubjectGradesRecordByRegistrationId(int registrationId)
         {
             //var subjectGradesRecords = _unitOfWork.SubjectGradesRecordRepository.SearchFor(sgr => sgr.Registration.Id == id, false).Include(sgr => sgr.Subject);
             //var subjectGradesRecordViewModel = MapListOfSubjectGradesRecordToListOfSubjectGradesRecordViewModel(subjectGradesRecords);
             ViewBag.RegistrationId = registrationId;
+            var currentRegistration = _unitOfWork.RegistrationRepository.GetById(registrationId);
+            if (currentRegistration == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.StudentFullName = currentRegistration.Student.FullName;
             return View("Index", _unitOfWork.SubjectGradesRecordRepository.SearchFor(sgr => sgr.Registration.Id == registrationId, false)
                 .Include(sgr => sgr.Subject)
                 .Include(sgr => sgr.Grades)
@@ -66,7 +72,12 @@ namespace StudInfoSys.Controllers
         /// <returns></returns>
         public ActionResult Create(int registrationId)
         {
-            var levelIdOfCurrentRegistration = _unitOfWork.RegistrationRepository.GetById(registrationId).Degree.LevelId;
+            var currentRegistration = _unitOfWork.RegistrationRepository.GetById(registrationId);
+            if (currentRegistration == null)
+            {
+                return HttpNotFound();
+            }
+            var levelIdOfCurrentRegistration = currentRegistration.Degree.LevelId;
             
             var subjectGradesRecordViewModel = new SubjectGradesRecordViewModel
             {
@@ -74,6 +85,7 @@ namespace StudInfoSys.Controllers
                 RegistrationId = registrationId,
                 SubjectsList = new SelectList(_unitOfWork.SubjectRepository.GetAll().Where(s => s.LevelId == levelIdOfCurrentRegistration) , "Id", "Name"),
                 PeriodsList = _unitOfWork.PeriodRepository.GetAll().Where(p => p.LevelId == levelIdOfCurrentRegistration),
+                StudentFullName = currentRegistration.Student.FullName,
                 GradeViewModels = new List<GradeViewModel>()
             };
             
@@ -219,6 +231,7 @@ namespace StudInfoSys.Controllers
                 RegistrationId = subjectGradesRecord.Registration.Id,
                 SubjectId = subjectGradesRecord.Subject.Id,
                 LevelId = subjectGradesRecord.Registration.Degree.LevelId,
+                StudentFullName = subjectGradesRecord.Registration.Student.FullName,
                 GradeViewModels = new List<GradeViewModel>()
             };
 

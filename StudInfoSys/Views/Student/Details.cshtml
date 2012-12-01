@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details @Model.FullName</h2>
 
 <div class="display-field">
     <img class="photo" src='@Url.Action("GetImage", new { id = Model.Id })' />

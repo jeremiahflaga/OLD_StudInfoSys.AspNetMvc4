@@ -37,7 +37,14 @@ namespace StudInfoSys.Controllers
         [ChildActionOnly]
         public ActionResult RegistrationsByStudentId(int studentId)
         {
+
             ViewBag.StudentId = studentId;
+            var student = _unitOfWork.StudentRepository.GetById(studentId);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.StudentFullName = student.FullName;
             var registrations = _unitOfWork.RegistrationRepository.SearchFor(r => r.Student.Id == studentId, false)
                 .Include(r => r.Semester)
                 .Include(r => r.Degree)
@@ -62,6 +69,11 @@ namespace StudInfoSys.Controllers
         /// <returns></returns>
         public ActionResult Create(int id)
         {
+            var student = _unitOfWork.StudentRepository.GetById(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
             var registrationViewModel = new RegistrationViewModel
                                             {
                                                 StudentId = id,
@@ -69,7 +81,8 @@ namespace StudInfoSys.Controllers
                                                     new SelectList(_unitOfWork.SemesterRepository.GetAll(), "Id", "Name"),
                                                 DegreesList =
                                                     new SelectList(_unitOfWork.DegreeRepository.GetAll(), "Id", "Title"),
-                                                DateOfRegistration = DateTime.Now
+                                                DateOfRegistration = DateTime.Now,
+                                                StudentFullName = student.FullName
                                             };
             
             return View(registrationViewModel);
@@ -182,7 +195,8 @@ namespace StudInfoSys.Controllers
                            SchoolYearFrom = registrations.SchoolYearFrom,
                            SchoolYearTo = registrations.SchoolYearTo,
                            SemesterId = registrations.Semester.Id,
-                           StudentId = registrations.Student.Id
+                           StudentId = registrations.Student.Id,
+                           StudentFullName = registrations.Student.FullName
                        };
         }
         
