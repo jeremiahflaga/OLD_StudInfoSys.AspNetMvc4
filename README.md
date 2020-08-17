@@ -3,7 +3,7 @@
 This is a practice project for ASP.NET MVC4
 
 
-**NOTE:** To be able to run the project, you need to install SQLServer Express 2012 LocalDb () from https://www.sqlshack.com/install-microsoft-sql-server-express-localdb/ (the file named `SqlLocalDB.MSI`, the one with a size of 33.0 MB)
+**NOTE:** To be able to run the project, you need to download and install SQLServer Express 2012 LocalDb from https://www.sqlshack.com/install-microsoft-sql-server-express-localdb/ (the file named `SqlLocalDB.MSI`, the one with a size of 33.0 MB)
 
 
 ## Things I made or used in this project:
